@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de carreras</title>
+    <title>RaceHub PRO - Motor Enciclopedia 2026</title>
     <style>
         :root {
             --bg-dark: #0f172a;
@@ -41,6 +41,7 @@
         .filters {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 12px;
             padding: 20px;
             flex-wrap: wrap;
@@ -55,16 +56,30 @@
             background-color: #334155;
             color: white;
             border: 2px solid transparent;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 42px;
         }
 
         .btn:hover { transform: translateY(-2px); }
         .btn.active { background-color: white; color: black; }
         
+        /* Estilos para los logos */
+        .cat-logo {
+            height: 22px;
+            width: auto;
+            background-color: white; /* Fondo para que los logos oscuros se vean bien */
+            padding: 2px 6px;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
         .btn[data-cat="f1"]:hover, .btn[data-cat="f1"].active { background-color: var(--f1-color); color: white; border-color: var(--f1-color); }
         .btn[data-cat="motogp"]:hover, .btn[data-cat="motogp"].active { background-color: var(--motogp-color); color: white; border-color: var(--motogp-color); }
         .btn[data-cat="wec"]:hover, .btn[data-cat="wec"].active { background-color: var(--wec-color); color: white; border-color: var(--wec-color); }
@@ -95,11 +110,14 @@
         .card:hover { transform: scale(1.02); }
 
         .card-header {
-            padding: 15px 20px;
+            padding: 10px 20px;
             font-weight: 800;
             font-size: 0.9em;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .bg-f1 { background-color: var(--f1-color); color: white; }
@@ -125,7 +143,7 @@
         .icon { font-size: 1.2em; min-width: 25px; text-align: center; }
         
         .fact-box {
-            margin-top: auto;
+            margin-top: 10px;
             background: rgba(255, 255, 255, 0.05);
             padding: 12px;
             border-radius: 8px;
@@ -133,6 +151,7 @@
             color: #cbd5e1;
             border-left: 3px solid #64748b;
             font-style: italic;
+            flex-grow: 1;
         }
 
         .no-events {
@@ -142,30 +161,69 @@
             font-size: 1.5em;
             color: var(--text-muted);
         }
+
+        /* Contenedor de botones de calendario */
+        .calendar-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .cal-btn {
+            flex: 1;
+            display: block;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9em;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .cal-btn:hover { transform: translateY(-2px); }
+
+        .google-btn { background-color: #3b82f6; color: white; }
+        .google-btn:hover { background-color: #2563eb; }
+
+        .apple-btn { background-color: #0f172a; color: white; border: 1px solid #334155; }
+        .apple-btn:hover { background-color: #1e293b; }
+
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Listado de<span> Carreras</span> 2026</h1>
-        <div class="subtitle">Hecho por Aitor 😎</div>
+        <h1>Race<span>Hub</span> 2026</h1>
+        <div class="subtitle">Wiki de Carreras Dinámica. Añade con 1 clic a tu calendario.</div>
     </header>
 
     <div class="filters" id="filter-container">
         <button class="btn active" data-cat="all">🏁 Todo</button>
-        <button class="btn" data-cat="f1">🏎️ F1</button>
-        <button class="btn" data-cat="motogp">🏍️ MotoGP</button>
-        <button class="btn" data-cat="wec">⏱️ WEC</button>
-        <button class="btn" data-cat="gt3">🚗 GT3 Europe</button>
-        <button class="btn" data-cat="gt4">🚙 GT4 Europe</button>
-        <button class="btn" data-cat="dtm">🚘 DTM</button>
-        <button class="btn" data-cat="nls">🌲 NLS</button>
+        <button class="btn" data-cat="f1"><img src="f1%20logo.jpg" alt="F1" class="cat-logo"> F1</button>
+        <button class="btn" data-cat="motogp"><img src="motogp%20logo.jpeg" alt="MotoGP" class="cat-logo"> MotoGP</button>
+        <button class="btn" data-cat="wec"><img src="wec%20logo.jpg" alt="WEC" class="cat-logo"> WEC</button>
+        <button class="btn" data-cat="gt3"><img src="gt3%20logo.png" alt="GT3" class="cat-logo"> GT3 Europe</button>
+        <button class="btn" data-cat="gt4"><img src="gt4%20logo.png" alt="GT4" class="cat-logo"> GT4 Europe</button>
+        <button class="btn" data-cat="dtm"><img src="dtm%20logo.png" alt="DTM" class="cat-logo"> DTM</button>
+        <button class="btn" data-cat="nls"><img src="nls%20logo.webp" alt="NLS" class="cat-logo"> NLS</button>
     </div>
 
     <div class="calendar-grid" id="events-grid">
         </div>
 
     <script>
+        // Diccionario de rutas de los logos en la carpeta raíz (main)
+        const logos = {
+            'f1': 'f1%20logo.jpg',
+            'motogp': 'motogp%20logo.jpeg',
+            'wec': 'wec%20logo.jpg',
+            'gt3': 'gt3%20logo.png',
+            'gt4': 'gt4%20logo.png',
+            'dtm': 'dtm%20logo.png',
+            'nls': 'nls%20logo.webp'
+        };
+
         const allEvents = [
             // FÓRMULA 1
             { cat: 'f1', name: 'Fórmula 1', title: 'GP de Australia', date: '2026-03-08', circuit: 'Albert Park', tv: 'DAZN F1', lapRecord: '1:19.815 (Leclerc)', firstYear: '1996', fact: 'Se corre alrededor de un lago artificial en Melbourne.' },
@@ -183,14 +241,14 @@
             { cat: 'f1', name: 'Fórmula 1', title: 'GP de Hungría', date: '2026-07-26', circuit: 'Hungaroring', tv: 'DAZN F1', lapRecord: '1:16.627 (Hamilton)', firstYear: '1986', fact: 'Fue el primer Gran Premio celebrado detrás del "Telón de Acero".' },
             { cat: 'f1', name: 'Fórmula 1', title: 'GP de Países Bajos', date: '2026-08-23', circuit: 'Zandvoort', tv: 'DAZN F1', lapRecord: '1:11.097 (Hamilton)', firstYear: '1952', fact: 'Famoso por sus brutales curvas peraltadas en Tarzán y Arie Luyendyk.' },
             { cat: 'f1', name: 'Fórmula 1', title: 'GP de Italia', date: '2026-09-06', circuit: 'Monza', tv: 'DAZN F1', lapRecord: '1:21.046 (Barrichello)', firstYear: '1950', fact: 'El "Templo de la Velocidad", los F1 alcanzan los 350 km/h al final de la recta.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Madrid', date: '2026-09-13', circuit: 'Madrid Street Circuit', tv: 'DAZN F1', lapRecord: 'N/A (Circuito Nuevo)', firstYear: '2026', fact: 'El regreso de la F1 a Madrid tras 45 años, combinando circuito urbano con pabellones de IFEMA.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Azerbaiyán', date: '2026-09-26', circuit: 'Baku City Circuit', tv: 'DAZN F1', lapRecord: '1:43.009 (Leclerc)', firstYear: '2016', fact: 'Contiene la zona del "Castillo", la sección más estrecha de todo el mundial (solo 7.6 metros).' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Madrid', date: '2026-09-13', circuit: 'Madrid Street Circuit', tv: 'DAZN F1', lapRecord: 'N/A (Circuito Nuevo)', firstYear: '2026', fact: 'El regreso de la F1 a Madrid tras 45 años, combinando circuito urbano con pabellones.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Azerbaiyán', date: '2026-09-26', circuit: 'Baku City Circuit', tv: 'DAZN F1', lapRecord: '1:43.009 (Leclerc)', firstYear: '2016', fact: 'Contiene la zona del "Castillo", la sección más estrecha de todo el mundial.' },
             { cat: 'f1', name: 'Fórmula 1', title: 'GP de Singapur', date: '2026-10-11', circuit: 'Marina Bay', tv: 'DAZN F1', lapRecord: '1:35.867 (Hamilton)', firstYear: '2008', fact: 'Fue la primera carrera nocturna en la historia de la Fórmula 1.' },
             { cat: 'f1', name: 'Fórmula 1', title: 'GP de Estados Unidos', date: '2026-10-25', circuit: 'Circuit of the Americas', tv: 'DAZN F1', lapRecord: '1:36.169 (Leclerc)', firstYear: '2012', fact: 'La empinada cuesta hacia la curva 1 se eleva más de 30 metros.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de México', date: '2026-11-01', circuit: 'Hermanos Rodríguez', tv: 'DAZN F1', lapRecord: '1:17.774 (Bottas)', firstYear: '1963', fact: 'A más de 2.200m de altitud, los motores sufren por la falta de oxígeno y tienen menos downforce.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de México', date: '2026-11-01', circuit: 'Hermanos Rodríguez', tv: 'DAZN F1', lapRecord: '1:17.774 (Bottas)', firstYear: '1963', fact: 'A más de 2.200m de altitud, los motores sufren por la falta de oxígeno.' },
             { cat: 'f1', name: 'Fórmula 1', title: 'GP de Brasil', date: '2026-11-08', circuit: 'Interlagos', tv: 'DAZN F1', lapRecord: '1:10.540 (Bottas)', firstYear: '1973', fact: 'Es uno de los pocos circuitos del mundo que se corre en sentido antihorario.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Las Vegas', date: '2026-11-22', circuit: 'Las Vegas Strip', tv: 'DAZN F1', lapRecord: '1:35.490 (Piastri)', firstYear: '2023', fact: 'Los monoplazas circulan literalmente por el The Strip frente al Caesars Palace y el Bellagio.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Qatar', date: '2026-11-29', circuit: 'Lusail', tv: 'DAZN F1', lapRecord: '1:24.319 (Verstappen)', firstYear: '2021', fact: 'Diseñado para motos, es un reto extremo para los cuellos de los pilotos por sus curvas rápidas.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Las Vegas', date: '2026-11-22', circuit: 'Las Vegas Strip', tv: 'DAZN F1', lapRecord: '1:35.490 (Piastri)', firstYear: '2023', fact: 'Los monoplazas circulan literalmente por el The Strip frente al Caesars Palace.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Qatar', date: '2026-11-29', circuit: 'Lusail', tv: 'DAZN F1', lapRecord: '1:24.319 (Verstappen)', firstYear: '2021', fact: 'Diseñado para motos, es un reto extremo para los cuellos de los pilotos.' },
             { cat: 'f1', name: 'Fórmula 1', title: 'GP de Abu Dhabi', date: '2026-12-06', circuit: 'Yas Marina', tv: 'DAZN F1', lapRecord: '1:26.103 (Verstappen)', firstYear: '2009', fact: 'El pit-lane tiene un túnel subterráneo para reincorporarse a la pista de forma segura.' },
 
             // MOTOGP
@@ -205,13 +263,13 @@
             { cat: 'motogp', name: 'MotoGP', title: 'GP de Hungría', date: '2026-06-07', circuit: 'Balaton Park', tv: 'DAZN', lapRecord: 'N/A', firstYear: '2025', fact: 'El nuevo templo húngaro, a los pies del lago Balaton.' },
             { cat: 'motogp', name: 'MotoGP', title: 'GP de R. Checa', date: '2026-06-21', circuit: 'Brno', tv: 'DAZN', lapRecord: '1:55.328 (Zarco)', firstYear: '1965', fact: 'Un regreso clásico tras varios años ausente del calendario mundial.' },
             { cat: 'motogp', name: 'MotoGP', title: 'GP de Países Bajos', date: '2026-06-28', circuit: 'Assen', tv: 'DAZN', lapRecord: '1:31.504 (Bezzecchi)', firstYear: '1949', fact: 'El único trazado que ha estado presente en el calendario todos los años desde su inicio.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Alemania', date: '2026-07-12', circuit: 'Sachsenring', tv: 'DAZN', lapRecord: '1:19.765 (Zarco)', firstYear: '1998', fact: 'Territorio Márquez. Casi todas sus curvas son a izquierdas, desgastando ese lado del neumático al límite.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Alemania', date: '2026-07-12', circuit: 'Sachsenring', tv: 'DAZN', lapRecord: '1:19.765 (Zarco)', firstYear: '1998', fact: 'Territorio Márquez. Casi todas sus curvas son a izquierdas, desgastando ese lado del neumático.' },
             { cat: 'motogp', name: 'MotoGP', title: 'GP de Gran Bretaña', date: '2026-08-09', circuit: 'Silverstone', tv: 'DAZN', lapRecord: '1:57.767 (Zarco)', firstYear: '1977', fact: 'Es uno de los circuitos más largos y rápidos de todo el mundial de motos.' },
             { cat: 'motogp', name: 'MotoGP', title: 'GP de Aragón', date: '2026-08-30', circuit: 'MotorLand', tv: 'DAZN', lapRecord: '1:46.069 (Bagnaia)', firstYear: '2010', fact: 'El "sacacorchos" de MotorLand, una chicane invertida, está inspirado en Laguna Seca.' },
             { cat: 'motogp', name: 'MotoGP', title: 'GP de San Marino', date: '2026-09-13', circuit: 'Misano', tv: 'DAZN', lapRecord: '1:30.390 (Martín)', firstYear: '1980', fact: 'Se corre muy cerca de Tavullia, el pueblo natal de la leyenda Valentino Rossi.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Austria', date: '2026-09-20', circuit: 'Red Bull Ring', tv: 'DAZN', lapRecord: '1:28.539 (Bastianini)', firstYear: '1971', fact: 'Famoso por ser un circuito de "Stop and Go", premiando la máxima aceleración y velocidad punta.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Austria', date: '2026-09-20', circuit: 'Red Bull Ring', tv: 'DAZN', lapRecord: '1:28.539 (Bastianini)', firstYear: '1971', fact: 'Famoso por ser un circuito de "Stop and Go", premiando la máxima aceleración.' },
             { cat: 'motogp', name: 'MotoGP', title: 'GP de Japón', date: '2026-10-04', circuit: 'Motegi', tv: 'DAZN', lapRecord: '1:43.198 (Martín)', firstYear: '1999', fact: 'Propiedad de Honda, suele ser el escenario donde se decide el campeonato asiático.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Indonesia', date: '2026-10-11', circuit: 'Mandalika', tv: 'DAZN', lapRecord: '1:29.978 (Marini)', firstYear: '2022', fact: 'Las lluvias torrenciales y los charcos gigantes suelen ser habituales en este circuito indonesio.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Indonesia', date: '2026-10-11', circuit: 'Mandalika', tv: 'DAZN', lapRecord: '1:29.978 (Marini)', firstYear: '2022', fact: 'Las lluvias torrenciales y los charcos gigantes suelen ser habituales en este circuito.' },
             { cat: 'motogp', name: 'MotoGP', title: 'GP de Australia', date: '2026-10-25', circuit: 'Phillip Island', tv: 'DAZN', lapRecord: '1:27.246 (Martín)', firstYear: '1989', fact: 'El circuito más rápido y puro, situado literalmente al borde de los acantilados marinos.' },
             { cat: 'motogp', name: 'MotoGP', title: 'GP de Malasia', date: '2026-11-01', circuit: 'Sepang', tv: 'DAZN', lapRecord: '1:57.491 (Bagnaia)', firstYear: '1999', fact: 'La zona de frenada de la curva 1 y 15 requiere soportar temperaturas extremas.' },
             { cat: 'motogp', name: 'MotoGP', title: 'GP de Portugal', date: '2026-11-15', circuit: 'Portimão', tv: 'DAZN', lapRecord: '1:37.226 (M. Márquez)', firstYear: '2020', fact: 'Conocido como la "Montaña Rusa" por sus brutales cambios de rasante a ciegas.' },
@@ -271,23 +329,47 @@
         const grid = document.getElementById('events-grid');
         const buttons = document.querySelectorAll('.btn');
 
-        // FUNCIÓN CLAVE: Filtra los eventos pasados comprobando la fecha de hoy
         function filterPastEvents(eventsList) {
             const today = new Date();
-            // Reseteamos las horas para comparar solo días
             today.setHours(0, 0, 0, 0); 
-
-            return eventsList.filter(event => {
-                const eventDate = new Date(event.date);
-                // Si la fecha del evento es de hoy o del futuro, se queda
-                return eventDate >= today; 
-            });
+            return eventsList.filter(event => new Date(event.date) >= today);
         }
 
         function formatDate(dateString) {
             const options = { day: 'numeric', month: 'long', timeZone: 'UTC' };
             const date = new Date(dateString);
             return date.toLocaleDateString('es-ES', options);
+        }
+
+        function getGoogleCalendarLink(event) {
+            const startDate = event.date.replace(/-/g, '');
+            const nextDay = new Date(event.date);
+            nextDay.setDate(nextDay.getDate() + 1);
+            const endDate = nextDay.toISOString().split('T')[0].replace(/-/g, '');
+
+            const titleText = encodeURIComponent(event.name + ': ' + event.title);
+            const locationText = encodeURIComponent(event.circuit);
+            const descriptionText = encodeURIComponent(
+                '📺 TV: ' + event.tv + '\n⏱️ Récord: ' + event.lapRecord + '\n\n💡 Dato curioso:\n' + event.fact
+            );
+
+            return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titleText}&dates=${startDate}/${endDate}&details=${descriptionText}&location=${locationText}`;
+        }
+
+        function getAppleCalendarLink(event) {
+            const startDate = event.date.replace(/-/g, '');
+            const nextDay = new Date(event.date);
+            nextDay.setDate(nextDay.getDate() + 1);
+            const endDate = nextDay.toISOString().split('T')[0].replace(/-/g, '');
+
+            const titleText = event.name + ': ' + event.title;
+            const descriptionText = '📺 TV: ' + event.tv + '\\n⏱️ Récord: ' + event.lapRecord + '\\n\\n💡 Dato curioso:\\n' + event.fact;
+
+            let icsFile = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//RaceHub 2026//ES\nBEGIN:VEVENT\n";
+            icsFile += "SUMMARY:" + titleText + "\nDTSTART;VALUE=DATE:" + startDate + "\nDTEND;VALUE=DATE:" + endDate + "\n";
+            icsFile += "LOCATION:" + event.circuit + "\nDESCRIPTION:" + descriptionText + "\nEND:VEVENT\nEND:VCALENDAR";
+
+            return 'data:text/calendar;charset=utf8,' + encodeURIComponent(icsFile);
         }
 
         function renderEvents(filter = 'all') {
@@ -298,50 +380,42 @@
                 filtered = allEvents.filter(e => e.cat === filter);
             }
 
-            // 1. Quitar eventos que ya han pasado a partir de HOY
             let futureEvents = filterPastEvents(filtered);
-
-            // 2. Ordenar por fecha automáticamente
             futureEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            // Si no hay eventos para mostrar (porque ya pasó el campeonato o el filtro está vacío)
             if(futureEvents.length === 0) {
                 grid.innerHTML = '<div class="no-events">No hay próximos eventos de esta categoría.</div>';
                 return;
             }
 
             futureEvents.forEach(event => {
+                const googleUrl = getGoogleCalendarLink(event);
+                const appleUrl = getAppleCalendarLink(event);
+                const safeFileName = event.title.replace(/\s+/g, '_') + '.ics';
+                
+                // Obtenemos la ruta del logo correcta según la categoría
+                const logoImgSrc = logos[event.cat];
+
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
                     <div class="card-header bg-${event.cat}">
-                        ${event.name} • Est. ${event.firstYear}
+                        <span>${event.name} • Est. ${event.firstYear}</span>
+                        <img src="${logoImgSrc}" alt="${event.name} logo" class="cat-logo">
                     </div>
                     <div class="card-body">
                         <h2 class="event-title">${event.title}</h2>
                         
-                        <div class="info-row">
-                            <span class="icon">📅</span>
-                            <span><strong>${formatDate(event.date)}</strong> de 2026</span>
-                        </div>
-                        
-                        <div class="info-row">
-                            <span class="icon">📍</span>
-                            <span><strong>${event.circuit}</strong></span>
-                        </div>
-                        
-                        <div class="info-row">
-                            <span class="icon">⏱️</span>
-                            <span>Récord: <strong>${event.lapRecord}</strong></span>
-                        </div>
+                        <div class="info-row"><span class="icon">📅</span><span><strong>${formatDate(event.date)}</strong> de 2026</span></div>
+                        <div class="info-row"><span class="icon">📍</span><span><strong>${event.circuit}</strong></span></div>
+                        <div class="info-row"><span class="icon">⏱️</span><span>Récord: <strong>${event.lapRecord}</strong></span></div>
+                        <div class="info-row"><span class="icon">📺</span><span>TV: <strong>${event.tv}</strong></span></div>
 
-                        <div class="info-row">
-                            <span class="icon">📺</span>
-                            <span>TV: <strong>${event.tv}</strong></span>
-                        </div>
-
-                        <div class="fact-box">
-                            " ${event.fact} "
+                        <div class="fact-box">" ${event.fact} "</div>
+                        
+                        <div class="calendar-buttons">
+                            <a href="${googleUrl}" target="_blank" class="cal-btn google-btn">🔵 Google</a>
+                            <a href="${appleUrl}" download="${safeFileName}" class="cal-btn apple-btn">🍏 iPhone / Mac</a>
                         </div>
                     </div>
                 `;
@@ -352,12 +426,14 @@
         buttons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 buttons.forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                renderEvents(e.target.getAttribute('data-cat'));
+                
+                // Asegurarse de activar el botón (y no la imagen si se hace click en ella)
+                const targetBtn = e.target.closest('.btn');
+                targetBtn.classList.add('active');
+                renderEvents(targetBtn.getAttribute('data-cat'));
             });
         });
 
-        // Ejecutar carga inicial
         renderEvents();
     </script>
 </body>
