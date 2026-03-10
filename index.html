@@ -111,7 +111,7 @@
         .card-header {
             padding: 10px 20px;
             font-weight: 800;
-            font-size: 0.9em;
+            font-size: 1.1em;
             text-transform: uppercase;
             letter-spacing: 1px;
             display: flex;
@@ -130,6 +130,20 @@
         .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; gap: 12px;}
         .event-title { margin: 0 0 5px 0; font-size: 1.5em; line-height: 1.2; }
         
+        /* Estilos Cuenta Atrás */
+        .countdown-badge {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1.15em;
+            text-align: center;
+            font-weight: bold;
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            margin-bottom: 5px;
+        }
+
         .info-row {
             display: flex;
             align-items: flex-start;
@@ -140,6 +154,17 @@
         .info-row strong { color: var(--text-main); }
         .icon { font-size: 1.2em; min-width: 25px; text-align: center; }
         
+        .tv-link {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        .tv-link:hover {
+            color: #bae6fd;
+            text-decoration: underline;
+        }
+
         .fact-box {
             margin-top: 10px;
             background: rgba(255, 255, 255, 0.05);
@@ -182,9 +207,8 @@
             opacity: 0; pointer-events: none;
             transition: all 0.3s ease;
         }
-        .modal-overlay.active {
-            opacity: 1; pointer-events: auto;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        
         .modal-content {
             background: var(--card-bg);
             padding: 25px;
@@ -195,9 +219,8 @@
             transform: translateY(20px);
             transition: all 0.3s ease;
         }
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-        }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        
         .close-modal {
             position: absolute; top: 10px; right: 15px;
             font-size: 1.5em; cursor: pointer;
@@ -206,9 +229,7 @@
         .close-modal:hover { color: white; }
         .modal-title { margin-top: 0; margin-bottom: 20px; color: white; font-size: 1.2em; }
         
-        .modal-buttons {
-            display: flex; flex-direction: column; gap: 12px;
-        }
+        .modal-buttons { display: flex; flex-direction: column; gap: 12px; }
         .cal-btn {
             display: block; text-align: center; padding: 12px;
             border-radius: 8px; font-weight: bold; font-size: 1em;
@@ -252,7 +273,7 @@
                     🔵 Google Calendar
                 </a>
                 <a href="#" id="modal-apple-btn" download="" class="cal-btn apple-btn" onclick="closeModal()">
-                    🍏 Calendario iPhone / Mac
+                    🍏 iPhone / Mac / Outlook
                 </a>
             </div>
         </div>
@@ -373,6 +394,18 @@
 
         const grid = document.getElementById('events-grid');
         const buttons = document.querySelectorAll('.btn');
+        let countdownInterval;
+
+        // Devuelve el link correcto según la categoría para retransmitir
+        function getChannelLink(cat) {
+            if (cat === 'f1') return 'https://www.dazn.com/es-ES/l/formula-1/';
+            if (cat === 'motogp') return 'https://www.dazn.com/es-ES/l/motogp/';
+            if (cat === 'wec') return 'https://fiawec.tv/';
+            if (cat === 'gt3' || cat === 'gt4') return 'https://www.youtube.com/c/GTWorld';
+            if (cat === 'dtm') return 'https://www.youtube.com/@DTM';
+            if (cat === 'nls') return 'https://www.youtube.com/c/N%C3%BCrburgring_official';
+            return '#';
+        }
 
         function filterPastEvents(eventsList) {
             const today = new Date();
@@ -391,13 +424,9 @@
             const nextDay = new Date(event.date);
             nextDay.setDate(nextDay.getDate() + 1);
             const endDate = nextDay.toISOString().split('T')[0].replace(/-/g, '');
-
             const titleText = encodeURIComponent(event.name + ': ' + event.title);
             const locationText = encodeURIComponent(event.circuit);
-            const descriptionText = encodeURIComponent(
-                '📺 TV: ' + event.tv + '\n⏱️ Récord: ' + event.lapRecord + '\n\n💡 Dato curioso:\n' + event.fact
-            );
-
+            const descriptionText = encodeURIComponent('📺 TV: ' + event.tv + '\n⏱️ Récord: ' + event.lapRecord + '\n\n💡 Dato curioso:\n' + event.fact);
             return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titleText}&dates=${startDate}/${endDate}&details=${descriptionText}&location=${locationText}`;
         }
 
@@ -406,28 +435,20 @@
             const nextDay = new Date(event.date);
             nextDay.setDate(nextDay.getDate() + 1);
             const endDate = nextDay.toISOString().split('T')[0].replace(/-/g, '');
-
             const titleText = event.name + ': ' + event.title;
             const descriptionText = '📺 TV: ' + event.tv + '\\n⏱️ Récord: ' + event.lapRecord + '\\n\\n💡 Dato curioso:\\n' + event.fact;
-
             let icsFile = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//RaceHub 2026//ES\nBEGIN:VEVENT\n";
             icsFile += "SUMMARY:" + titleText + "\nDTSTART;VALUE=DATE:" + startDate + "\nDTEND;VALUE=DATE:" + endDate + "\n";
             icsFile += "LOCATION:" + event.circuit + "\nDESCRIPTION:" + descriptionText + "\nEND:VEVENT\nEND:VCALENDAR";
-
             return 'data:text/calendar;charset=utf8,' + encodeURIComponent(icsFile);
         }
 
-        // --- LÓGICA DEL MENÚ EMERGENTE (MODAL) ---
         function openModal(btnElement) {
             const googleBtn = document.getElementById('modal-google-btn');
             const appleBtn = document.getElementById('modal-apple-btn');
-            
-            // Transferimos la info oculta del botón pulsado a los botones del popup
             googleBtn.href = btnElement.dataset.google;
             appleBtn.href = btnElement.dataset.apple;
             appleBtn.download = btnElement.dataset.filename;
-            
-            // Mostramos el modal
             document.getElementById('calendar-modal').classList.add('active');
         }
 
@@ -435,13 +456,44 @@
             document.getElementById('calendar-modal').classList.remove('active');
         }
 
-        // Cerrar también si se hace click fuera de la cajita del menú
         document.getElementById('calendar-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+            if (e.target === this) closeModal();
         });
-        // -----------------------------------------
+
+        // Motor de la Cuenta Atrás (Se ejecuta cada segundo)
+        function startCountdowns(eventsList) {
+            if (countdownInterval) clearInterval(countdownInterval);
+
+            countdownInterval = setInterval(() => {
+                const now = new Date().getTime();
+
+                eventsList.forEach((event, index) => {
+                    const timerEl = document.getElementById(`timer-${index}`);
+                    if (!timerEl) return;
+
+                    // Suponemos que las carreras arrancan sobre las 14:00h UTC
+                    const raceDate = new Date(event.date + "T14:00:00Z").getTime();
+                    const distance = raceDate - now;
+
+                    if (distance < 0) {
+                        timerEl.innerHTML = "🏁 ¡Día de carrera!";
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Formato limpio añadiendo ceros a la izquierda
+                    const hStr = hours < 10 ? '0'+hours : hours;
+                    const mStr = minutes < 10 ? '0'+minutes : minutes;
+                    const sStr = seconds < 10 ? '0'+seconds : seconds;
+
+                    timerEl.innerHTML = `⏱️ ${days}d ${hStr}h ${mStr}m ${sStr}s`;
+                });
+            }, 1000);
+        }
 
         function renderEvents(filter = 'all') {
             grid.innerHTML = ''; 
@@ -456,30 +508,34 @@
 
             if(futureEvents.length === 0) {
                 grid.innerHTML = '<div class="no-events">No hay próximos eventos de esta categoría.</div>';
+                if(countdownInterval) clearInterval(countdownInterval);
                 return;
             }
 
-            futureEvents.forEach(event => {
+            futureEvents.forEach((event, index) => {
                 const googleUrl = getGoogleCalendarLink(event);
                 const appleUrl = getAppleCalendarLink(event);
                 const safeFileName = event.title.replace(/\s+/g, '_') + '.ics';
-                
                 const logoImgSrc = logos[event.cat];
+                const channelUrl = getChannelLink(event.cat);
 
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
                     <div class="card-header bg-${event.cat}">
-                        <span>${event.name} • Est. ${event.firstYear}</span>
+                        <span>${event.name}</span>
                         <img src="${logoImgSrc}" alt="${event.name} logo" class="cat-logo">
                     </div>
                     <div class="card-body">
+                        <div class="countdown-badge" id="timer-${index}">Calculando...</div>
+                        
                         <h2 class="event-title">${event.title}</h2>
                         
                         <div class="info-row"><span class="icon">📅</span><span><strong>${formatDate(event.date)}</strong> de 2026</span></div>
                         <div class="info-row"><span class="icon">📍</span><span><strong>${event.circuit}</strong></span></div>
+                        <div class="info-row"><span class="icon">🏛️</span><span>Primera edición: <strong>${event.firstYear}</strong></span></div>
                         <div class="info-row"><span class="icon">⏱️</span><span>Récord: <strong>${event.lapRecord}</strong></span></div>
-                        <div class="info-row"><span class="icon">📺</span><span>TV: <strong>${event.tv}</strong></span></div>
+                        <div class="info-row"><span class="icon">📺</span><span>TV: <a href="${channelUrl}" target="_blank" class="tv-link">${event.tv}</a></span></div>
 
                         <div class="fact-box">" ${event.fact} "</div>
                         
@@ -494,6 +550,9 @@
                 `;
                 grid.appendChild(card);
             });
+
+            // Arrancamos los cronómetros después de dibujar las tarjetas
+            startCountdowns(futureEvents);
         }
 
         buttons.forEach(btn => {
