@@ -205,14 +205,12 @@
                 try {
                     const res = await fetch(url);
                     
-                    // Si Google rechaza la lectura (Error 400), lo capturamos aquí
                     if (!res.ok) {
                         throw new Error(`Rechazado (Error ${res.status}). Revisa que la pestaña "${cat}" exista y no tenga espacios al final.`);
                     }
                     
                     const text = await res.text();
                     
-                    // Si el archivo no está publicado, Google nos devuelve una página web (HTML)
                     if (text.trim().startsWith("<")) {
                         throw new Error(`La hoja está privada. Ve a 'Archivo > Compartir > Publicar en la Web'.`);
                     }
@@ -263,7 +261,6 @@
                     }
                 });
 
-                // Si NO ha podido descargar NINGUNA carrera, enseñamos la caja roja
                 if (loadedEvents.length === 0) {
                     grid.innerHTML = `
                         <div class="no-events" style="border: 2px solid #E10600; text-align: left; background: rgba(225, 6, 0, 0.1);">
@@ -523,6 +520,9 @@
             startCountdowns(futureEvents);
         }
 
+        // --- SOLUCIÓN DEL ERROR AÑADIDA AQUÍ ---
+        const buttons = document.querySelectorAll('.btn');
+        
         buttons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 buttons.forEach(b => b.classList.remove('active'));
@@ -532,7 +532,7 @@
             });
         });
 
-        // ARRANCAMOS EL MOTOR
+        // ARRANCAMOS EL MOTOR AL CARGAR LA PÁGINA
         window.onload = loadDataFromGoogleSheets;
 
     </script>
