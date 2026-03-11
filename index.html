@@ -38,7 +38,7 @@
                 #1a1a1a
             );
             background-size: 40px 40px;
-            background-attachment: fixed; /* Hace que el fondo no se desplace con el scroll */
+            background-attachment: fixed;
             animation: move 4s linear infinite;
         }
 
@@ -49,8 +49,8 @@
         /* ------------------------------- */
 
         header {
-            background-color: rgba(2, 6, 23, 0.85); /* Un poco transparente para ver el fondo */
-            backdrop-filter: blur(10px); /* Efecto cristal */
+            background-color: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(10px);
             padding: 40px 20px;
             text-align: center;
             border-bottom: 2px solid #334155;
@@ -123,12 +123,12 @@
             background: var(--card-bg);
             border-radius: 16px;
             overflow: hidden; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8); /* Sombra más fuerte para que resalte sobre el fondo oscuro */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
             transition: transform 0.2s ease;
             position: relative;
             display: flex;
             flex-direction: column;
-            border: 1px solid rgba(255, 255, 255, 0.05); /* Borde muy sutil */
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .card:hover { transform: scale(1.02); }
 
@@ -284,7 +284,7 @@
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); /* Ligeramente más oscuro para tapar la animación */
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
             display: flex; justify-content: center; align-items: center;
             z-index: 9999;
@@ -481,7 +481,6 @@
         const buttons = document.querySelectorAll('.btn');
         let countdownInterval;
         
-        // Las tres flechas del botón, metidas en una variable para no manchar el código HTML repetido
         const svgArrows = `
             <svg width="40px" height="15px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -507,11 +506,22 @@
             return eventsList.filter(event => new Date(event.date) >= today);
         }
 
+        // --- FUNCIÓN DE FECHA ACTUALIZADA ---
         function formatDate(dateString) {
-            const options = { day: 'numeric', month: 'long', timeZone: 'UTC' };
+            // Se añade el día de la semana y el año en las opciones nativas
+            const options = { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' };
             const date = new Date(dateString);
-            return date.toLocaleDateString('es-ES', options);
+            let formatted = date.toLocaleDateString('es-ES', options);
+            
+            // Ponemos la primera letra en mayúscula (ej: "sáb" -> "Sáb")
+            formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+            
+            // Limpiamos si el navegador pone un punto tras la abreviatura (Sáb., -> Sáb,)
+            formatted = formatted.replace('.,', ',');
+            
+            return formatted;
         }
+        // ------------------------------------
 
         function getGoogleCalendarLink(event) {
             const startDate = event.date.replace(/-/g, '');
@@ -538,7 +548,6 @@
         }
 
         function openModal(btnElement) {
-            // Buscamos el botón padre .cta para leer los datos que hemos inyectado
             const btn = btnElement.closest('.cta');
             const googleBtn = document.getElementById('modal-google-btn');
             const appleBtn = document.getElementById('modal-apple-btn');
@@ -624,7 +633,7 @@
                         
                         <h2 class="event-title">${event.title}</h2>
                         
-                        <div class="info-row"><span class="icon">📅</span><span><strong>${formatDate(event.date)}</strong> de 2026</span></div>
+                        <div class="info-row"><span class="icon">📅</span><span><strong>${formatDate(event.date)}</strong></span></div>
                         <div class="info-row"><span class="icon">📍</span><span><strong>${event.circuit}</strong></span></div>
                         <div class="info-row"><span class="icon">🏛️</span><span>Primera edición: <strong>${event.firstYear}</strong></span></div>
                         <div class="info-row"><span class="icon">⏱️</span><span>Récord: <strong>${event.lapRecord}</strong></span></div>
