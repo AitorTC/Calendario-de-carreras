@@ -98,7 +98,7 @@
         .tv-link:hover { color: #bae6fd; text-decoration: underline; }
         .fact-box { margin-top: 10px; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; font-size: 0.9em; color: #cbd5e1; border-left: 3px solid #64748b; font-style: italic; flex-grow: 1; }
 
-        .no-events { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.5em; color: var(--text-muted); background: rgba(30, 41, 59, 0.8); border-radius: 16px; backdrop-filter: blur(5px); }
+        .no-events { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.2em; color: var(--text-muted); background: rgba(30, 41, 59, 0.8); border-radius: 16px; backdrop-filter: blur(5px); }
         .loader { display: inline-block; width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: #38bdf8; animation: spin 1s ease-in-out infinite; margin-bottom: 20px;}
         @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -173,7 +173,7 @@
     </div>
 
     <script>
-        // ID de tu Google Sheets Integrado
+        // TU ID DE GOOGLE SHEETS YA ESTÁ AQUÍ
         const SHEET_ID = '1JoK-5nQjVQSSBL5-uxjOP13arS2zAFV8hPM38r93Wg4'; 
         
         let allEvents = [];
@@ -194,25 +194,41 @@
             </svg>`;
 
         // =========================================================================
-        // CARGA DESDE GOOGLE SHEETS
+        // MOTOR DE DESCARGA CON SISTEMA DE DIAGNÓSTICO
         // =========================================================================
         async function loadDataFromGoogleSheets() {
             const grid = document.getElementById('events-grid');
             const categories = ['f1', 'motogp', 'wec', 'gt3', 'gt4', 'dtm', 'nls'];
             
-            try {
-                const fetchPromises = categories.map(cat => {
-                    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${cat}`;
-                    return fetch(url).then(res => res.text()).then(text => {
-                        // Limpia la respuesta para dejar el JSON puro
-                        const jsonString = text.match(/google\.visualization\.Query\.setResponse\(([\s\S\w]+)\);/)[1];
-                        const data = JSON.parse(jsonString);
-                        let catEvents = [];
-                        
-                        // Extraer cada fila, ignorando cabeceras
+            // Usamos un sistema paralelo pero controlando los errores uno a uno
+            const fetchPromises = categories.map(async (cat) => {
+                const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${cat}`;
+                
+                try {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+                    
+                    const text = await res.text();
+                    
+                    // Si Google nos devuelve código HTML, significa que la hoja está PRIVADA
+                    if (text.includes("<!DOCTYPE html>") || text.includes("<html")) {
+                        throw new Error("❌ La hoja está PRIVADA. Google bloquea la lectura.");
+                    }
+                    
+                    const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S\w]+)\);/);
+                    if (!match) throw new Error("Formato de respuesta desconocido.");
+                    
+                    const data = JSON.parse(match[1]);
+                    
+                    // Si la pestaña no existe o el nombre está mal escrito
+                    if (data.status === "error") {
+                        throw new Error("❌ Pestaña no encontrada (Comprueba que se llama exactamente así en minúsculas).");
+                    }
+                    
+                    let catEvents = [];
+                    if (data.table && data.table.rows) {
                         data.table.rows.forEach(row => {
                             if (row.c && row.c[0] && row.c[0].v && row.c[0].v.toLowerCase() !== 'nombre') {
-                                // Mapeo de columnas: Nombre, Titulo, Fecha, Circuito, TV, Record, Año, Curiosidad
                                 catEvents.push({
                                     cat: cat,
                                     name: row.c[0] ? row.c[0].v : '',
@@ -226,26 +242,58 @@
                                 });
                             }
                         });
-                        return catEvents;
-                    });
+                    }
+                    return { status: 'ok', data: catEvents };
+                } catch (err) {
+                    return { status: 'error', cat: cat, errorMsg: err.message };
+                }
+            });
+
+            try {
+                const results = await Promise.all(fetchPromises);
+                
+                let loadedEvents = [];
+                let errorLog = [];
+
+                results.forEach(result => {
+                    if (result.status === 'ok') {
+                        loadedEvents.push(...result.data);
+                    } else {
+                        errorLog.push(`<b>Pestaña [${result.cat}]</b>: ${result.errorMsg}`);
+                    }
                 });
 
-                // Esperamos a tener todas las pestañas listas
-                const results = await Promise.all(fetchPromises);
-                allEvents = results.flat();
-                
-                // Renderizar inicialmente
+                // Si no se ha cargado ABSOLUTAMENTE NINGUNA carrera, mostramos el Panel de Diagnóstico
+                if (loadedEvents.length === 0) {
+                    grid.innerHTML = `
+                        <div class="no-events" style="border: 2px solid #E10600; text-align: left; font-size: 1.1em; color: white;">
+                            <h3>⚠️ Panel de Diagnóstico: La conexión falló</h3>
+                            <p>No se pudo descargar ninguna carrera. El sistema detectó estos fallos en tu Google Sheets:</p>
+                            <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; font-family: monospace; color: #ff7b7b;">
+                                ${errorLog.join('<br>')}
+                            </div>
+                            <br>
+                            <b>👉 Soluciones Rápidas:</b>
+                            <ul style="color: #94a3b8; font-size: 0.9em;">
+                                <li style="margin-bottom: 5px;">Abre tu Google Sheets, ve arriba a la derecha a <b>"Compartir"</b> y marca la opción <b>"Cualquier usuario que tenga el vínculo"</b>.</li>
+                                <li style="margin-bottom: 5px;">Asegúrate de que en la parte de abajo de tu Excel tienes 7 pestañas creadas y llamadas exactamente así: <b>f1, motogp, wec, gt3, gt4, dtm, nls</b>.</li>
+                            </ul>
+                        </div>
+                    `;
+                    return;
+                }
+
+                allEvents = loadedEvents;
                 const activeBtn = document.querySelector('.btn.active');
                 renderEvents(activeBtn ? activeBtn.getAttribute('data-cat') : 'all');
 
-            } catch (e) {
-                console.error("Error al descargar el Excel:", e);
-                grid.innerHTML = `<div class="no-events">❌ Error de conexión.<br>Comprueba que tu hoja en Google Sheets tenga el acceso puesto a "Cualquier persona con el enlace".</div>`;
+            } catch (fatalError) {
+                grid.innerHTML = `<div class="no-events">❌ Error crítico en el código JS:<br>${fatalError.message}</div>`;
             }
         }
 
         // =========================================================================
-        // FUNCIONES DE APOYO
+        // RESTO DE FUNCIONES (No tocar)
         // =========================================================================
         function getChannelLink(cat) {
             if (cat === 'f1') return 'https://www.dazn.com/es-ES/l/formula-1/';
@@ -259,7 +307,6 @@
 
         function filterPastEvents(eventsList) {
             const today = new Date().getTime();
-            // Mostrar carreras que hayan sucedido hace menos de 24 horas (por si alguien entra el mismo domingo)
             return eventsList.filter(event => new Date(event.date).getTime() >= (today - 24*60*60*1000));
         }
 
@@ -418,8 +465,8 @@
             let futureEvents = filterPastEvents(filtered);
             futureEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            if(futureEvents.length === 0) {
-                grid.innerHTML = '<div class="no-events">No hay próximos eventos en el calendario o faltan datos.</div>';
+            if(futureEvents.length === 0 && allEvents.length > 0) {
+                grid.innerHTML = '<div class="no-events">No hay próximos eventos en esta categoría.</div>';
                 if(countdownInterval) clearInterval(countdownInterval);
                 return;
             }
@@ -478,9 +525,6 @@
             startCountdowns(futureEvents);
         }
 
-        // =========================================================================
-        // INICIALIZACIÓN DE LA PÁGINA
-        // =========================================================================
         buttons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 buttons.forEach(b => b.classList.remove('active'));
@@ -490,7 +534,7 @@
             });
         });
 
-        // Al abrir la página, ejecuta la conexión con tu Google Sheets
+        // ARRANCAMOS EL MOTOR AL CARGAR LA PÁGINA
         window.onload = loadDataFromGoogleSheets;
 
     </script>
