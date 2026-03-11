@@ -27,16 +27,7 @@
             
             /* --- FONDO ANIMADO UIVERSE --- */
             background: #121212; 
-            background: linear-gradient(
-                135deg,
-                #121212 25%,
-                #1a1a1a 25%,
-                #1a1a1a 50%,
-                #121212 50%,
-                #121212 75%,
-                #1a1a1a 75%,
-                #1a1a1a
-            );
+            background: linear-gradient(135deg, #121212 25%, #1a1a1a 25%, #1a1a1a 50%, #121212 50%, #121212 75%, #1a1a1a 75%, #1a1a1a);
             background-size: 40px 40px;
             background-attachment: fixed;
             animation: move 4s linear infinite;
@@ -46,7 +37,6 @@
             0% { background-position: 0 0; }
             100% { background-position: 40px 40px; }
         }
-        /* ------------------------------- */
 
         header {
             background-color: rgba(2, 6, 23, 0.85);
@@ -94,12 +84,9 @@
         .btn.active { background-color: white; color: black; }
         
         .cat-logo {
-            height: 22px;
-            width: auto;
-            background-color: white; 
-            padding: 2px 6px;
-            border-radius: 4px;
-            object-fit: contain;
+            height: 22px; width: auto;
+            background-color: white; padding: 2px 6px;
+            border-radius: 4px; object-fit: contain;
         }
 
         .btn[data-cat="f1"]:hover, .btn[data-cat="f1"].active { background-color: var(--f1-color); color: white; border-color: var(--f1-color); }
@@ -133,14 +120,9 @@
         .card:hover { transform: scale(1.02); }
 
         .card-header {
-            padding: 10px 20px;
-            font-weight: 800;
-            font-size: 1.1em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 10px 20px; font-weight: 800; font-size: 1.1em;
+            text-transform: uppercase; letter-spacing: 1px;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
         .bg-f1 { background-color: var(--f1-color); color: white; }
@@ -155,170 +137,73 @@
         .event-title { margin: 0 0 5px 0; font-size: 1.5em; line-height: 1.2; }
         
         .countdown-badge {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 10px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 1.15em;
-            text-align: center;
-            font-weight: bold;
-            color: #38bdf8;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            margin-bottom: 5px;
+            background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 8px;
+            font-family: monospace; font-size: 1.15em; text-align: center; font-weight: bold;
+            color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); margin-bottom: 5px;
         }
 
-        .info-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: var(--text-muted);
-            font-size: 0.95em;
-        }
+        .info-row { display: flex; align-items: flex-start; gap: 10px; color: var(--text-muted); font-size: 0.95em; }
         .info-row strong { color: var(--text-main); }
         .icon { font-size: 1.2em; min-width: 25px; text-align: center; }
         
-        .tv-link {
-            color: #38bdf8;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.2s;
+        /* Acordeón de Horarios */
+        .schedule-accordion {
+            margin-top: 5px; background: rgba(0, 0, 0, 0.15);
+            border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .tv-link:hover {
-            color: #bae6fd;
-            text-decoration: underline;
+        .schedule-accordion summary {
+            padding: 12px; cursor: pointer; font-weight: 600; font-size: 0.95em;
+            color: var(--text-main); list-style: none; display: flex; align-items: center; gap: 8px;
         }
+        .schedule-accordion summary::-webkit-details-marker { display: none; }
+        .schedule-accordion summary:hover { background: rgba(255, 255, 255, 0.05); border-radius: 8px; }
+        .schedule-list {
+            list-style: none; padding: 0 15px 15px 15px; margin: 0;
+            display: flex; flex-direction: column; gap: 8px; font-size: 0.9em;
+        }
+        .schedule-list li {
+            display: flex; justify-content: space-between; padding-bottom: 5px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1); color: var(--text-muted);
+        }
+        .schedule-list li.main-race { border-bottom: none; font-weight: bold; color: #38bdf8; padding-bottom: 0; }
+
+        .tv-link { color: #38bdf8; text-decoration: none; font-weight: bold; transition: color 0.2s; }
+        .tv-link:hover { color: #bae6fd; text-decoration: underline; }
 
         .fact-box {
-            margin-top: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            color: #cbd5e1;
-            border-left: 3px solid #64748b;
-            font-style: italic;
-            flex-grow: 1;
+            margin-top: 10px; background: rgba(255, 255, 255, 0.05); padding: 12px;
+            border-radius: 8px; font-size: 0.9em; color: #cbd5e1;
+            border-left: 3px solid #64748b; font-style: italic; flex-grow: 1;
         }
 
-        .no-events {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 50px;
-            font-size: 1.5em;
-            color: var(--text-muted);
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 16px;
-            backdrop-filter: blur(5px);
-        }
+        .no-events { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.5em; color: var(--text-muted); background: rgba(30, 41, 59, 0.8); border-radius: 16px; backdrop-filter: blur(5px); }
 
-        /* --- BOTÓN ANIMADO "NEXT" ADAPTADO --- */
-        .cta-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 25px;
-            margin-bottom: 10px; 
-            width: 100%;
-        }
-
-        .cta {
-            display: flex;
-            align-items: center;
-            padding: 10px 25px;
-            text-decoration: none;
-            font-size: 1em;
-            font-weight: bold;
-            color: white;
-            background: #334155; 
-            transition: 1s;
-            box-shadow: 6px 6px 0 #020617; 
-            transform: skewX(-15deg);
-            border: none;
-            cursor: pointer;
-        }
-
+        /* Botón Animado CTA */
+        .cta-container { display: flex; justify-content: center; margin-top: 25px; margin-bottom: 10px; width: 100%; }
+        .cta { display: flex; align-items: center; padding: 10px 25px; text-decoration: none; font-size: 1em; font-weight: bold; color: white; background: #334155; transition: 1s; box-shadow: 6px 6px 0 #020617; transform: skewX(-15deg); border: none; cursor: pointer; }
         .cta:focus { outline: none; }
-
-        .cta:hover {
-            transition: 0.5s;
-            box-shadow: 8px 8px 0 #38bdf8; 
-        }
-
-        .cta .second {
-            transition: 0.5s;
-            margin-right: 0px;
-            display: flex;
-            align-items: center;
-        }
-
-        .cta:hover .second {
-            transition: 0.5s;
-            margin-right: 25px; 
-        }
-
-        .span {
-            transform: skewX(15deg);
-            letter-spacing: 1px;
-        }
-
-        .second {
-            width: 30px;
-            margin-left: 20px;
-            position: relative;
-        }
-
+        .cta:hover { transition: 0.5s; box-shadow: 8px 8px 0 #38bdf8; }
+        .cta .second { transition: 0.5s; margin-right: 0px; display: flex; align-items: center; }
+        .cta:hover .second { transition: 0.5s; margin-right: 25px; }
+        .span { transform: skewX(15deg); letter-spacing: 1px; }
+        .second { width: 30px; margin-left: 20px; position: relative; }
         .one { transition: 0.4s; transform: translateX(-60%); }
         .two { transition: 0.5s; transform: translateX(-30%); }
-
         .cta:hover .three { animation: color_anim 1s infinite 0.2s; }
         .cta:hover .one { transform: translateX(0%); animation: color_anim 1s infinite 0.6s; }
         .cta:hover .two { transform: translateX(0%); animation: color_anim 1s infinite 0.4s; }
+        @keyframes color_anim { 0% { fill: white; } 50% { fill: #38bdf8; } 100% { fill: white; } }
 
-        @keyframes color_anim {
-            0% { fill: white; }
-            50% { fill: #38bdf8; } 
-            100% { fill: white; }
-        }
-        /* ------------------------------------- */
-
-        /* Estilos del Popup / Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 9999;
-            opacity: 0; pointer-events: none;
-            transition: all 0.3s ease;
-        }
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        
-        .modal-content {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 16px;
-            width: 90%; max-width: 320px;
-            text-align: center; position: relative;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-        }
+        .modal-content { background: var(--card-bg); padding: 25px; border-radius: 16px; width: 90%; max-width: 320px; text-align: center; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.8); transform: translateY(20px); transition: all 0.3s ease; }
         .modal-overlay.active .modal-content { transform: translateY(0); }
-        
-        .close-modal {
-            position: absolute; top: 10px; right: 15px;
-            font-size: 1.5em; cursor: pointer;
-            color: var(--text-muted); transition: 0.2s;
-        }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5em; cursor: pointer; color: var(--text-muted); transition: 0.2s; }
         .close-modal:hover { color: white; }
         .modal-title { margin-top: 0; margin-bottom: 20px; color: white; font-size: 1.2em; }
-        
         .modal-buttons { display: flex; flex-direction: column; gap: 12px; }
-        .cal-btn {
-            display: block; text-align: center; padding: 12px;
-            border-radius: 8px; font-weight: bold; font-size: 1em;
-            text-decoration: none; transition: 0.2s;
-        }
+        .cal-btn { display: block; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 1em; text-decoration: none; transition: 0.2s; }
         .cal-btn:hover { transform: translateY(-2px); }
         .google-btn { background-color: #3b82f6; color: white; }
         .google-btn:hover { background-color: #2563eb; }
@@ -331,7 +216,7 @@
 
     <header>
         <h1>Race<span>Hub</span> 2026</h1>
-        <div class="subtitle">Wiki de Carreras Dinámica. Añade los eventos a tu agenda.</div>
+        <div class="subtitle">Wiki de Carreras Dinámica. Horarios adaptados a tu zona.</div>
     </header>
 
     <div class="filters" id="filter-container">
@@ -353,128 +238,120 @@
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <h3 class="modal-title">¿Dónde quieres guardarlo?</h3>
             <div class="modal-buttons">
-                <a href="#" id="modal-google-btn" target="_blank" class="cal-btn google-btn" onclick="closeModal()">
-                    🔵 Google Calendar
-                </a>
-                <a href="#" id="modal-apple-btn" download="" class="cal-btn apple-btn" onclick="closeModal()">
-                    🍏 iPhone / Mac / Outlook
-                </a>
+                <a href="#" id="modal-google-btn" target="_blank" class="cal-btn google-btn" onclick="closeModal()">🔵 Google Calendar</a>
+                <a href="#" id="modal-apple-btn" download="" class="cal-btn apple-btn" onclick="closeModal()">🍏 iPhone / Mac / Outlook</a>
             </div>
         </div>
     </div>
 
     <script>
         const logos = {
-            'f1': 'f1%20logo.jpg',
-            'motogp': 'motogp%20logo.jpeg',
-            'wec': 'wec%20logo.jpg',
-            'gt3': 'gt3%20logo.png',
-            'gt4': 'gt4%20logo.png',
-            'dtm': 'dtm%20logo.png',
-            'nls': 'nls%20logo.webp'
+            'f1': 'f1%20logo.jpg', 'motogp': 'motogp%20logo.jpeg', 'wec': 'wec%20logo.jpg',
+            'gt3': 'gt3%20logo.png', 'gt4': 'gt4%20logo.png', 'dtm': 'dtm%20logo.png', 'nls': 'nls%20logo.webp'
         };
 
+        // NOTA: Fechas ahora en formato ISO 8601 completo (YYYY-MM-DDTHH:MM:00Z) para la cuenta atrás real y el calendario.
         const allEvents = [
-            // FÓRMULA 1
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Australia', date: '2026-03-08', circuit: 'Albert Park', tv: 'DAZN F1', lapRecord: '1:19.815 (Leclerc)', firstYear: '1996', fact: 'Se corre alrededor de un lago artificial en Melbourne.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de China', date: '2026-03-15', circuit: 'Shanghai International', tv: 'DAZN F1', lapRecord: '1:32.238 (M. Schumacher)', firstYear: '2004', fact: 'El trazado tiene la forma del carácter chino "Shang".' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Japón', date: '2026-03-29', circuit: 'Suzuka Circuit', tv: 'DAZN F1', lapRecord: '1:30.983 (Hamilton)', firstYear: '1987', fact: 'Único circuito del calendario con forma de ocho, con un puente.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Bahréin', date: '2026-04-12', circuit: 'Bahrain International', tv: 'DAZN F1', lapRecord: '1:31.447 (De la Rosa)', firstYear: '2004', fact: 'Pista construida en el desierto; la arena a menudo entra en pista.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Arabia Saudí', date: '2026-04-19', circuit: 'Jeddah Corniche', tv: 'DAZN F1', lapRecord: '1:30.734 (Hamilton)', firstYear: '2021', fact: 'El circuito urbano más rápido del mundo, rozando los 252 km/h de media.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Miami', date: '2026-05-03', circuit: 'Miami Autodrome', tv: 'DAZN F1', lapRecord: '1:29.708 (Verstappen)', firstYear: '2022', fact: 'Circuito montado en el parking del estadio de los Miami Dolphins.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Canadá', date: '2026-05-24', circuit: 'Gilles Villeneuve', tv: 'DAZN F1', lapRecord: '1:13.078 (Bottas)', firstYear: '1978', fact: 'La chicane final aloja el famoso "Muro de los Campeones".' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Mónaco', date: '2026-06-07', circuit: 'Mónaco', tv: 'DAZN F1', lapRecord: '1:12.909 (Hamilton)', firstYear: '1950', fact: 'La carrera del glamour. Los pilotos tienen que girar el volante hasta 180º en Loews.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de España', date: '2026-06-14', circuit: 'Barcelona-Catalunya', tv: 'DAZN F1', lapRecord: '1:16.330 (Verstappen)', firstYear: '1991', fact: 'Se dice que quien tiene un coche rápido aquí, es rápido en todas partes.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Austria', date: '2026-06-28', circuit: 'Red Bull Ring', tv: 'DAZN F1', lapRecord: '1:05.619 (Sainz)', firstYear: '1970', fact: 'El circuito con el tiempo por vuelta más corto del calendario.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Gran Bretaña', date: '2026-07-05', circuit: 'Silverstone', tv: 'DAZN F1', lapRecord: '1:27.097 (Verstappen)', firstYear: '1950', fact: 'Albergó la primera carrera oficial del campeonato del mundo de F1 en 1950.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Bélgica', date: '2026-07-19', circuit: 'Spa-Francorchamps', tv: 'DAZN F1', lapRecord: '1:46.286 (Bottas)', firstYear: '1950', fact: 'La famosa curva de Eau Rouge y Raidillon eleva a los coches 35 metros de altura.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Hungría', date: '2026-07-26', circuit: 'Hungaroring', tv: 'DAZN F1', lapRecord: '1:16.627 (Hamilton)', firstYear: '1986', fact: 'Fue el primer Gran Premio celebrado detrás del "Telón de Acero".' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Países Bajos', date: '2026-08-23', circuit: 'Zandvoort', tv: 'DAZN F1', lapRecord: '1:11.097 (Hamilton)', firstYear: '1952', fact: 'Famoso por sus brutales curvas peraltadas en Tarzán y Arie Luyendyk.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Italia', date: '2026-09-06', circuit: 'Monza', tv: 'DAZN F1', lapRecord: '1:21.046 (Barrichello)', firstYear: '1950', fact: 'El "Templo de la Velocidad", los F1 alcanzan los 350 km/h al final de la recta.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Madrid', date: '2026-09-13', circuit: 'Madrid Street Circuit', tv: 'DAZN F1', lapRecord: 'N/A (Circuito Nuevo)', firstYear: '2026', fact: 'El regreso de la F1 a Madrid tras 45 años, combinando circuito urbano con pabellones.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Azerbaiyán', date: '2026-09-26', circuit: 'Baku City Circuit', tv: 'DAZN F1', lapRecord: '1:43.009 (Leclerc)', firstYear: '2016', fact: 'Contiene la zona del "Castillo", la sección más estrecha de todo el mundial.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Singapur', date: '2026-10-11', circuit: 'Marina Bay', tv: 'DAZN F1', lapRecord: '1:35.867 (Hamilton)', firstYear: '2008', fact: 'Fue la primera carrera nocturna en la historia de la Fórmula 1.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Estados Unidos', date: '2026-10-25', circuit: 'Circuit of the Americas', tv: 'DAZN F1', lapRecord: '1:36.169 (Leclerc)', firstYear: '2012', fact: 'La empinada cuesta hacia la curva 1 se eleva más de 30 metros.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de México', date: '2026-11-01', circuit: 'Hermanos Rodríguez', tv: 'DAZN F1', lapRecord: '1:17.774 (Bottas)', firstYear: '1963', fact: 'A más de 2.200m de altitud, los motores sufren por la falta de oxígeno.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Brasil', date: '2026-11-08', circuit: 'Interlagos', tv: 'DAZN F1', lapRecord: '1:10.540 (Bottas)', firstYear: '1973', fact: 'Es uno de los pocos circuitos del mundo que se corre en sentido antihorario.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Las Vegas', date: '2026-11-22', circuit: 'Las Vegas Strip', tv: 'DAZN F1', lapRecord: '1:35.490 (Piastri)', firstYear: '2023', fact: 'Los monoplazas circulan literalmente por el The Strip frente al Caesars Palace.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Qatar', date: '2026-11-29', circuit: 'Lusail', tv: 'DAZN F1', lapRecord: '1:24.319 (Verstappen)', firstYear: '2021', fact: 'Diseñado para motos, es un reto extremo para los cuellos de los pilotos.' },
-            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Abu Dhabi', date: '2026-12-06', circuit: 'Yas Marina', tv: 'DAZN F1', lapRecord: '1:26.103 (Verstappen)', firstYear: '2009', fact: 'El pit-lane tiene un túnel subterráneo para reincorporarse a la pista de forma segura.' },
+            // FÓRMULA 1 (Horarios UTC aproximados para 2026 basados en las últimas temporadas)
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Australia', date: '2026-03-08T04:00:00Z', circuit: 'Albert Park', tv: 'DAZN F1', lapRecord: '1:19.815 (Leclerc)', firstYear: '1996', fact: 'Se corre alrededor de un lago artificial en Melbourne.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de China', date: '2026-03-15T07:00:00Z', circuit: 'Shanghai International', tv: 'DAZN F1', lapRecord: '1:32.238 (M. Schumacher)', firstYear: '2004', fact: 'El trazado tiene la forma del carácter chino "Shang".' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Japón', date: '2026-03-29T05:00:00Z', circuit: 'Suzuka Circuit', tv: 'DAZN F1', lapRecord: '1:30.983 (Hamilton)', firstYear: '1987', fact: 'Único circuito del calendario con forma de ocho, con un puente.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Bahréin', date: '2026-04-12T15:00:00Z', circuit: 'Bahrain International', tv: 'DAZN F1', lapRecord: '1:31.447 (De la Rosa)', firstYear: '2004', fact: 'Pista construida en el desierto; la arena a menudo entra en pista.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Arabia Saudí', date: '2026-04-19T17:00:00Z', circuit: 'Jeddah Corniche', tv: 'DAZN F1', lapRecord: '1:30.734 (Hamilton)', firstYear: '2021', fact: 'El circuito urbano más rápido del mundo, rozando los 252 km/h de media.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Miami', date: '2026-05-03T20:00:00Z', circuit: 'Miami Autodrome', tv: 'DAZN F1', lapRecord: '1:29.708 (Verstappen)', firstYear: '2022', fact: 'Circuito montado en el parking del estadio de los Miami Dolphins.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Canadá', date: '2026-05-24T18:00:00Z', circuit: 'Gilles Villeneuve', tv: 'DAZN F1', lapRecord: '1:13.078 (Bottas)', firstYear: '1978', fact: 'La chicane final aloja el famoso "Muro de los Campeones".' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Mónaco', date: '2026-06-07T13:00:00Z', circuit: 'Mónaco', tv: 'DAZN F1', lapRecord: '1:12.909 (Hamilton)', firstYear: '1950', fact: 'La carrera del glamour. Los pilotos tienen que girar el volante hasta 180º en Loews.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de España', date: '2026-06-14T13:00:00Z', circuit: 'Barcelona-Catalunya', tv: 'DAZN F1', lapRecord: '1:16.330 (Verstappen)', firstYear: '1991', fact: 'Se dice que quien tiene un coche rápido aquí, es rápido en todas partes.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Austria', date: '2026-06-28T13:00:00Z', circuit: 'Red Bull Ring', tv: 'DAZN F1', lapRecord: '1:05.619 (Sainz)', firstYear: '1970', fact: 'El circuito con el tiempo por vuelta más corto del calendario.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Gran Bretaña', date: '2026-07-05T14:00:00Z', circuit: 'Silverstone', tv: 'DAZN F1', lapRecord: '1:27.097 (Verstappen)', firstYear: '1950', fact: 'Albergó la primera carrera oficial del campeonato del mundo de F1 en 1950.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Bélgica', date: '2026-07-19T13:00:00Z', circuit: 'Spa-Francorchamps', tv: 'DAZN F1', lapRecord: '1:46.286 (Bottas)', firstYear: '1950', fact: 'La famosa curva de Eau Rouge y Raidillon eleva a los coches 35 metros de altura.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Hungría', date: '2026-07-26T13:00:00Z', circuit: 'Hungaroring', tv: 'DAZN F1', lapRecord: '1:16.627 (Hamilton)', firstYear: '1986', fact: 'Fue el primer Gran Premio celebrado detrás del "Telón de Acero".' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Países Bajos', date: '2026-08-23T13:00:00Z', circuit: 'Zandvoort', tv: 'DAZN F1', lapRecord: '1:11.097 (Hamilton)', firstYear: '1952', fact: 'Famoso por sus brutales curvas peraltadas en Tarzán y Arie Luyendyk.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Italia', date: '2026-09-06T13:00:00Z', circuit: 'Monza', tv: 'DAZN F1', lapRecord: '1:21.046 (Barrichello)', firstYear: '1950', fact: 'El "Templo de la Velocidad", los F1 alcanzan los 350 km/h al final de la recta.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Madrid', date: '2026-09-13T13:00:00Z', circuit: 'Madrid Street Circuit', tv: 'DAZN F1', lapRecord: 'N/A (Circuito Nuevo)', firstYear: '2026', fact: 'El regreso de la F1 a Madrid tras 45 años, combinando circuito urbano con pabellones.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Azerbaiyán', date: '2026-09-26T11:00:00Z', circuit: 'Baku City Circuit', tv: 'DAZN F1', lapRecord: '1:43.009 (Leclerc)', firstYear: '2016', fact: 'Contiene la zona del "Castillo", la sección más estrecha de todo el mundial.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Singapur', date: '2026-10-11T12:00:00Z', circuit: 'Marina Bay', tv: 'DAZN F1', lapRecord: '1:35.867 (Hamilton)', firstYear: '2008', fact: 'Fue la primera carrera nocturna en la historia de la Fórmula 1.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Estados Unidos', date: '2026-10-25T19:00:00Z', circuit: 'Circuit of the Americas', tv: 'DAZN F1', lapRecord: '1:36.169 (Leclerc)', firstYear: '2012', fact: 'La empinada cuesta hacia la curva 1 se eleva más de 30 metros.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de México', date: '2026-11-01T20:00:00Z', circuit: 'Hermanos Rodríguez', tv: 'DAZN F1', lapRecord: '1:17.774 (Bottas)', firstYear: '1963', fact: 'A más de 2.200m de altitud, los motores sufren por la falta de oxígeno.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Brasil', date: '2026-11-08T17:00:00Z', circuit: 'Interlagos', tv: 'DAZN F1', lapRecord: '1:10.540 (Bottas)', firstYear: '1973', fact: 'Es uno de los pocos circuitos del mundo que se corre en sentido antihorario.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Las Vegas', date: '2026-11-22T06:00:00Z', circuit: 'Las Vegas Strip', tv: 'DAZN F1', lapRecord: '1:35.490 (Piastri)', firstYear: '2023', fact: 'Los monoplazas circulan literalmente por el The Strip frente al Caesars Palace.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Qatar', date: '2026-11-29T17:00:00Z', circuit: 'Lusail', tv: 'DAZN F1', lapRecord: '1:24.319 (Verstappen)', firstYear: '2021', fact: 'Diseñado para motos, es un reto extremo para los cuellos de los pilotos.' },
+            { cat: 'f1', name: 'Fórmula 1', title: 'GP de Abu Dhabi', date: '2026-12-06T13:00:00Z', circuit: 'Yas Marina', tv: 'DAZN F1', lapRecord: '1:26.103 (Verstappen)', firstYear: '2009', fact: 'El pit-lane tiene un túnel subterráneo para reincorporarse a la pista de forma segura.' },
 
             // MOTOGP
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Tailandia', date: '2026-03-01', circuit: 'Buriram', tv: 'DAZN', lapRecord: '1:29.899 (Bezzecchi)', firstYear: '2018', fact: 'Carrera muy exigente por las extremas temperaturas y alta humedad.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Brasil', date: '2026-03-22', circuit: 'Goiânia', tv: 'DAZN', lapRecord: 'N/A', firstYear: '2026', fact: 'El ansiado retorno de MotoGP a territorio sudamericano (fuera de Argentina).' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de las Américas', date: '2026-03-29', circuit: 'COTA', tv: 'DAZN', lapRecord: '2:01.355 (Bagnaia)', firstYear: '2013', fact: 'Marc Márquez dominó aquí ininterrumpidamente durante años.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Qatar', date: '2026-04-12', circuit: 'Lusail', tv: 'DAZN', lapRecord: '1:52.978 (Bastianini)', firstYear: '2004', fact: 'Suele ser la carrera inaugural, disputada íntegramente de noche bajo focos.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de España', date: '2026-04-26', circuit: 'Jerez', tv: 'DAZN', lapRecord: '1:36.170 (Bagnaia)', firstYear: '1987', fact: 'La "Catedral" del sur de España. La curva 13 (Jorge Lorenzo) decide muchas carreras.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Francia', date: '2026-05-10', circuit: 'Le Mans (Bugatti)', tv: 'DAZN', lapRecord: '1:30.450 (Bagnaia)', firstYear: '1969', fact: 'Suele ser el evento que más público atrae el domingo de toda la temporada de MotoGP.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Catalunya', date: '2026-05-17', circuit: 'Barcelona', tv: 'DAZN', lapRecord: '1:38.639 (A. Espargaró)', firstYear: '1992', fact: 'Valentino Rossi y Jorge Lorenzo protagonizaron aquí el mejor adelantamiento en la última curva.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Italia', date: '2026-05-31', circuit: 'Mugello', tv: 'DAZN', lapRecord: '1:44.855 (Bagnaia)', firstYear: '1976', fact: 'La recta más rápida: Brad Binder alcanzó aquí los 366.1 km/h sobre su KTM.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Hungría', date: '2026-06-07', circuit: 'Balaton Park', tv: 'DAZN', lapRecord: 'N/A', firstYear: '2025', fact: 'El nuevo templo húngaro, a los pies del lago Balaton.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de R. Checa', date: '2026-06-21', circuit: 'Brno', tv: 'DAZN', lapRecord: '1:55.328 (Zarco)', firstYear: '1965', fact: 'Un regreso clásico tras varios años ausente del calendario mundial.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Países Bajos', date: '2026-06-28', circuit: 'Assen', tv: 'DAZN', lapRecord: '1:31.504 (Bezzecchi)', firstYear: '1949', fact: 'El único trazado que ha estado presente en el calendario todos los años desde su inicio.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Alemania', date: '2026-07-12', circuit: 'Sachsenring', tv: 'DAZN', lapRecord: '1:19.765 (Zarco)', firstYear: '1998', fact: 'Territorio Márquez. Casi todas sus curvas son a izquierdas, desgastando ese lado del neumático.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Gran Bretaña', date: '2026-08-09', circuit: 'Silverstone', tv: 'DAZN', lapRecord: '1:57.767 (Zarco)', firstYear: '1977', fact: 'Es uno de los circuitos más largos y rápidos de todo el mundial de motos.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Aragón', date: '2026-08-30', circuit: 'MotorLand', tv: 'DAZN', lapRecord: '1:46.069 (Bagnaia)', firstYear: '2010', fact: 'El "sacacorchos" de MotorLand, una chicane invertida, está inspirado en Laguna Seca.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de San Marino', date: '2026-09-13', circuit: 'Misano', tv: 'DAZN', lapRecord: '1:30.390 (Martín)', firstYear: '1980', fact: 'Se corre muy cerca de Tavullia, el pueblo natal de la leyenda Valentino Rossi.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Austria', date: '2026-09-20', circuit: 'Red Bull Ring', tv: 'DAZN', lapRecord: '1:28.539 (Bastianini)', firstYear: '1971', fact: 'Famoso por ser un circuito de "Stop and Go", premiando la máxima aceleración.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Japón', date: '2026-10-04', circuit: 'Motegi', tv: 'DAZN', lapRecord: '1:43.198 (Martín)', firstYear: '1999', fact: 'Propiedad de Honda, suele ser el escenario donde se decide el campeonato asiático.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Indonesia', date: '2026-10-11', circuit: 'Mandalika', tv: 'DAZN', lapRecord: '1:29.978 (Marini)', firstYear: '2022', fact: 'Las lluvias torrenciales y los charcos gigantes suelen ser habituales en este circuito.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Australia', date: '2026-10-25', circuit: 'Phillip Island', tv: 'DAZN', lapRecord: '1:27.246 (Martín)', firstYear: '1989', fact: 'El circuito más rápido y puro, situado literalmente al borde de los acantilados marinos.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Malasia', date: '2026-11-01', circuit: 'Sepang', tv: 'DAZN', lapRecord: '1:57.491 (Bagnaia)', firstYear: '1999', fact: 'La zona de frenada de la curva 1 y 15 requiere soportar temperaturas extremas.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Portugal', date: '2026-11-15', circuit: 'Portimão', tv: 'DAZN', lapRecord: '1:37.226 (M. Márquez)', firstYear: '2020', fact: 'Conocido como la "Montaña Rusa" por sus brutales cambios de rasante a ciegas.' },
-            { cat: 'motogp', name: 'MotoGP', title: 'GP de Valencia', date: '2026-11-22', circuit: 'Ricardo Tormo', tv: 'DAZN', lapRecord: '1:28.931 (Vinales)', firstYear: '1999', fact: 'Tradicionalmente el fin de fiesta de la temporada donde se coronan los campeones.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Tailandia', date: '2026-03-01T08:00:00Z', circuit: 'Buriram', tv: 'DAZN', lapRecord: '1:29.899 (Bezzecchi)', firstYear: '2018', fact: 'Carrera muy exigente por las extremas temperaturas y alta humedad.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Brasil', date: '2026-03-22T17:00:00Z', circuit: 'Goiânia', tv: 'DAZN', lapRecord: 'N/A', firstYear: '2026', fact: 'El ansiado retorno de MotoGP a territorio sudamericano (fuera de Argentina).' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de las Américas', date: '2026-03-29T19:00:00Z', circuit: 'COTA', tv: 'DAZN', lapRecord: '2:01.355 (Bagnaia)', firstYear: '2013', fact: 'Marc Márquez dominó aquí ininterrumpidamente durante años.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Qatar', date: '2026-04-12T17:00:00Z', circuit: 'Lusail', tv: 'DAZN', lapRecord: '1:52.978 (Bastianini)', firstYear: '2004', fact: 'Suele ser la carrera inaugural, disputada íntegramente de noche bajo focos.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de España', date: '2026-04-26T12:00:00Z', circuit: 'Jerez', tv: 'DAZN', lapRecord: '1:36.170 (Bagnaia)', firstYear: '1987', fact: 'La "Catedral" del sur de España. La curva 13 (Jorge Lorenzo) decide muchas carreras.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Francia', date: '2026-05-10T12:00:00Z', circuit: 'Le Mans (Bugatti)', tv: 'DAZN', lapRecord: '1:30.450 (Bagnaia)', firstYear: '1969', fact: 'Suele ser el evento que más público atrae el domingo de toda la temporada de MotoGP.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Catalunya', date: '2026-05-17T12:00:00Z', circuit: 'Barcelona', tv: 'DAZN', lapRecord: '1:38.639 (A. Espargaró)', firstYear: '1992', fact: 'Valentino Rossi y Jorge Lorenzo protagonizaron aquí el mejor adelantamiento en la última curva.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Italia', date: '2026-05-31T12:00:00Z', circuit: 'Mugello', tv: 'DAZN', lapRecord: '1:44.855 (Bagnaia)', firstYear: '1976', fact: 'La recta más rápida: Brad Binder alcanzó aquí los 366.1 km/h sobre su KTM.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Hungría', date: '2026-06-07T12:00:00Z', circuit: 'Balaton Park', tv: 'DAZN', lapRecord: 'N/A', firstYear: '2025', fact: 'El nuevo templo húngaro, a los pies del lago Balaton.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de R. Checa', date: '2026-06-21T12:00:00Z', circuit: 'Brno', tv: 'DAZN', lapRecord: '1:55.328 (Zarco)', firstYear: '1965', fact: 'Un regreso clásico tras varios años ausente del calendario mundial.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Países Bajos', date: '2026-06-28T12:00:00Z', circuit: 'Assen', tv: 'DAZN', lapRecord: '1:31.504 (Bezzecchi)', firstYear: '1949', fact: 'El único trazado que ha estado presente en el calendario todos los años desde su inicio.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Alemania', date: '2026-07-12T12:00:00Z', circuit: 'Sachsenring', tv: 'DAZN', lapRecord: '1:19.765 (Zarco)', firstYear: '1998', fact: 'Territorio Márquez. Casi todas sus curvas son a izquierdas, desgastando ese lado del neumático.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Gran Bretaña', date: '2026-08-09T12:00:00Z', circuit: 'Silverstone', tv: 'DAZN', lapRecord: '1:57.767 (Zarco)', firstYear: '1977', fact: 'Es uno de los circuitos más largos y rápidos de todo el mundial de motos.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Aragón', date: '2026-08-30T12:00:00Z', circuit: 'MotorLand', tv: 'DAZN', lapRecord: '1:46.069 (Bagnaia)', firstYear: '2010', fact: 'El "sacacorchos" de MotorLand, una chicane invertida, está inspirado en Laguna Seca.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de San Marino', date: '2026-09-13T12:00:00Z', circuit: 'Misano', tv: 'DAZN', lapRecord: '1:30.390 (Martín)', firstYear: '1980', fact: 'Se corre muy cerca de Tavullia, el pueblo natal de la leyenda Valentino Rossi.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Austria', date: '2026-09-20T12:00:00Z', circuit: 'Red Bull Ring', tv: 'DAZN', lapRecord: '1:28.539 (Bastianini)', firstYear: '1971', fact: 'Famoso por ser un circuito de "Stop and Go", premiando la máxima aceleración.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Japón', date: '2026-10-04T05:00:00Z', circuit: 'Motegi', tv: 'DAZN', lapRecord: '1:43.198 (Martín)', firstYear: '1999', fact: 'Propiedad de Honda, suele ser el escenario donde se decide el campeonato asiático.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Indonesia', date: '2026-10-11T07:00:00Z', circuit: 'Mandalika', tv: 'DAZN', lapRecord: '1:29.978 (Marini)', firstYear: '2022', fact: 'Las lluvias torrenciales y los charcos gigantes suelen ser habituales en este circuito.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Australia', date: '2026-10-25T03:00:00Z', circuit: 'Phillip Island', tv: 'DAZN', lapRecord: '1:27.246 (Martín)', firstYear: '1989', fact: 'El circuito más rápido y puro, situado literalmente al borde de los acantilados marinos.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Malasia', date: '2026-11-01T07:00:00Z', circuit: 'Sepang', tv: 'DAZN', lapRecord: '1:57.491 (Bagnaia)', firstYear: '1999', fact: 'La zona de frenada de la curva 1 y 15 requiere soportar temperaturas extremas.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Portugal', date: '2026-11-15T13:00:00Z', circuit: 'Portimão', tv: 'DAZN', lapRecord: '1:37.226 (M. Márquez)', firstYear: '2020', fact: 'Conocido como la "Montaña Rusa" por sus brutales cambios de rasante a ciegas.' },
+            { cat: 'motogp', name: 'MotoGP', title: 'GP de Valencia', date: '2026-11-22T13:00:00Z', circuit: 'Ricardo Tormo', tv: 'DAZN', lapRecord: '1:28.931 (Vinales)', firstYear: '1999', fact: 'Tradicionalmente el fin de fiesta de la temporada donde se coronan los campeones.' },
 
             // WEC
-            { cat: 'wec', name: 'WEC', title: 'Qatar 1812km', date: '2026-03-28', circuit: 'Lusail', tv: 'FIA WEC TV', lapRecord: '1:39.757 (Hypercar)', firstYear: '2024', fact: 'El límite de carrera se establece por distancia (1812 km) o un máximo de 10 horas.' },
-            { cat: 'wec', name: 'WEC', title: '6 Horas de Imola', date: '2026-04-19', circuit: 'Imola', tv: 'FIA WEC TV', lapRecord: '1:31.794 (Hypercar)', firstYear: '2024', fact: 'Circuito clásico italiano (old-school) muy estrecho y difícil para los prototipos.' },
-            { cat: 'wec', name: 'WEC', title: '6 Horas de Spa', date: '2026-05-09', circuit: 'Spa-Francorchamps', tv: 'FIA WEC TV', lapRecord: '2:00.201 (Hypercar)', firstYear: '1953', fact: 'Histórico ensayo de fiabilidad para los equipos de fábrica antes de Le Mans.' },
-            { cat: 'wec', name: 'WEC', title: '24 Horas de Le Mans', date: '2026-06-14', circuit: 'La Sarthe', tv: 'Eurosport', lapRecord: '3:14.791 (Hypercar)', firstYear: '1923', fact: 'Más de 300.000 fans acampan para ver cómo los Hypercars alcanzan los 340 km/h en Mulsanne.' },
-            { cat: 'wec', name: 'WEC', title: '6 Horas de São Paulo', date: '2026-07-12', circuit: 'Interlagos', tv: 'FIA WEC TV', lapRecord: '1:17.442 (LMP1 histórico)', firstYear: '2012', fact: 'El tráfico es infernal: los Hypercars tienen que doblar a los lentos GT3 docenas de veces.' },
-            { cat: 'wec', name: 'WEC', title: 'Lone Star Le Mans', date: '2026-09-06', circuit: 'COTA (Austin)', tv: 'FIA WEC TV', lapRecord: '1:44.805 (Hypercar)', firstYear: '2013', fact: 'El calor tejano castiga severamente los neumáticos y los sistemas híbridos de los coches.' },
-            { cat: 'wec', name: 'WEC', title: '6 Horas de Fuji', date: '2026-09-27', circuit: 'Fuji Speedway', tv: 'FIA WEC TV', lapRecord: '1:29.234 (Hypercar)', firstYear: '1982', fact: 'Carrera a los pies del Monte Fuji. Destaca por tener una recta interminable de 1.475 metros.' },
-            { cat: 'wec', name: 'WEC', title: '8 Horas de Bahréin', date: '2026-11-07', circuit: 'Bahrain', tv: 'FIA WEC TV', lapRecord: '1:46.564 (Hypercar)', firstYear: '2012', fact: 'Comienza de día y termina bajo los focos de noche para coronar a los campeones del mundo.' },
+            { cat: 'wec', name: 'WEC', title: 'Qatar 1812km', date: '2026-03-28T08:00:00Z', circuit: 'Lusail', tv: 'FIA WEC TV', lapRecord: '1:39.757 (Hypercar)', firstYear: '2024', fact: 'El límite de carrera se establece por distancia (1812 km) o un máximo de 10 horas.' },
+            { cat: 'wec', name: 'WEC', title: '6 Horas de Imola', date: '2026-04-19T11:00:00Z', circuit: 'Imola', tv: 'FIA WEC TV', lapRecord: '1:31.794 (Hypercar)', firstYear: '2024', fact: 'Circuito clásico italiano (old-school) muy estrecho y difícil para los prototipos.' },
+            { cat: 'wec', name: 'WEC', title: '6 Horas de Spa', date: '2026-05-09T11:00:00Z', circuit: 'Spa-Francorchamps', tv: 'FIA WEC TV', lapRecord: '2:00.201 (Hypercar)', firstYear: '1953', fact: 'Histórico ensayo de fiabilidad para los equipos de fábrica antes de Le Mans.' },
+            { cat: 'wec', name: 'WEC', title: '24 Horas de Le Mans', date: '2026-06-14T14:00:00Z', circuit: 'La Sarthe', tv: 'Eurosport', lapRecord: '3:14.791 (Hypercar)', firstYear: '1923', fact: 'Más de 300.000 fans acampan para ver cómo los Hypercars alcanzan los 340 km/h en Mulsanne.' },
+            { cat: 'wec', name: 'WEC', title: '6 Horas de São Paulo', date: '2026-07-12T14:30:00Z', circuit: 'Interlagos', tv: 'FIA WEC TV', lapRecord: '1:17.442 (LMP1 histórico)', firstYear: '2012', fact: 'El tráfico es infernal: los Hypercars tienen que doblar a los lentos GT3 docenas de veces.' },
+            { cat: 'wec', name: 'WEC', title: 'Lone Star Le Mans', date: '2026-09-06T18:00:00Z', circuit: 'COTA (Austin)', tv: 'FIA WEC TV', lapRecord: '1:44.805 (Hypercar)', firstYear: '2013', fact: 'El calor tejano castiga severamente los neumáticos y los sistemas híbridos de los coches.' },
+            { cat: 'wec', name: 'WEC', title: '6 Horas de Fuji', date: '2026-09-27T02:00:00Z', circuit: 'Fuji Speedway', tv: 'FIA WEC TV', lapRecord: '1:29.234 (Hypercar)', firstYear: '1982', fact: 'Carrera a los pies del Monte Fuji. Destaca por tener una recta interminable de 1.475 metros.' },
+            { cat: 'wec', name: 'WEC', title: '8 Horas de Bahréin', date: '2026-11-07T11:00:00Z', circuit: 'Bahrain', tv: 'FIA WEC TV', lapRecord: '1:46.564 (Hypercar)', firstYear: '2012', fact: 'Comienza de día y termina bajo los focos de noche para coronar a los campeones del mundo.' },
 
             // GT WORLD CHALLENGE (GT3)
-            { cat: 'gt3', name: 'GT3 Europe', title: '3 Horas Paul Ricard', date: '2026-04-12', circuit: 'Paul Ricard', tv: 'YouTube GT World', lapRecord: '1:53.0 (GT3)', firstYear: '2011', fact: 'Se usan cientos de líneas rojas y azules súper abrasivas como escapatorias.' },
-            { cat: 'gt3', name: 'GT3 Europe', title: 'Brands Hatch (Sprint)', date: '2026-05-03', circuit: 'Brands Hatch', tv: 'YouTube GT World', lapRecord: '1:21.5 (GT3)', firstYear: '2014', fact: 'Pista de pura valentía inglesa. Muy poca escapatoria y altas velocidades.' },
-            { cat: 'gt3', name: 'GT3 Europe', title: '3 Horas de Monza', date: '2026-05-31', circuit: 'Monza', tv: 'YouTube GT World', lapRecord: '1:46.8 (GT3)', firstYear: '2011', fact: 'El gran reto son las fortísimas apuradas de frenada con coches tan pesados como los GT3.' },
-            { cat: 'gt3', name: 'GT3 Europe', title: '24 Horas de Spa', date: '2026-06-28', circuit: 'Spa-Francorchamps', tv: 'YouTube GT World', lapRecord: '2:16.2 (GT3)', firstYear: '1924', fact: 'La mayor carrera de GT3 del planeta. Más de 60 coches de idéntica categoría peleando.' },
-            { cat: 'gt3', name: 'GT3 Europe', title: 'Misano (Sprint)', date: '2026-07-19', circuit: 'Misano', tv: 'YouTube GT World', lapRecord: '1:31.2 (GT3)', firstYear: '2015', fact: 'Carreras cortas y al sprint donde un solo error en pit-stop te cuesta el fin de semana.' },
-            { cat: 'gt3', name: 'GT3 Europe', title: 'Magny-Cours (Sprint)', date: '2026-08-02', circuit: 'Magny-Cours', tv: 'YouTube GT World', lapRecord: '1:35.8 (GT3)', firstYear: '2020', fact: 'Trazado clásico francés muy técnico, exigiendo mucho chasis y paso por curva lenta.' },
-            { cat: 'gt3', name: 'GT3 Europe', title: '3 Horas Nürburgring', date: '2026-08-30', circuit: 'Nürburgring GP', tv: 'YouTube GT World', lapRecord: '1:53.5 (GT3)', firstYear: '2011', fact: 'Se corre solo en el trazado moderno del Gran Premio, no en el Nordschleife.' },
-            { cat: 'gt3', name: 'GT3 Europe', title: 'Zandvoort (Sprint)', date: '2026-09-20', circuit: 'Zandvoort', tv: 'YouTube GT World', lapRecord: '1:32.4 (GT3)', firstYear: '2015', fact: 'Los peraltes fuerzan las suspensiones de los GT al límite.' },
-            { cat: 'gt3', name: 'GT3 Europe', title: 'Barcelona (Sprint)', date: '2026-10-04', circuit: 'Barcelona-Catalunya', tv: 'YouTube GT World', lapRecord: '1:43.0 (GT3)', firstYear: '2016', fact: 'Las altas temperaturas desgastan mucho los neumáticos traseros de los GT.' },
-            { cat: 'gt3', name: 'GT3 Europe', title: 'Portimão (Endurance)', date: '2026-10-18', circuit: 'Portimão', tv: 'YouTube GT World', lapRecord: '1:42.5 (GT3)', firstYear: '2025', fact: 'Los fuertes desniveles complican la vida a los coches con motor delantero (como los BMW).' },
+            { cat: 'gt3', name: 'GT3 Europe', title: '3 Horas Paul Ricard', date: '2026-04-12T13:00:00Z', circuit: 'Paul Ricard', tv: 'YouTube GT World', lapRecord: '1:53.0 (GT3)', firstYear: '2011', fact: 'Se usan cientos de líneas rojas y azules súper abrasivas como escapatorias.' },
+            { cat: 'gt3', name: 'GT3 Europe', title: 'Brands Hatch (Sprint)', date: '2026-05-03T14:00:00Z', circuit: 'Brands Hatch', tv: 'YouTube GT World', lapRecord: '1:21.5 (GT3)', firstYear: '2014', fact: 'Pista de pura valentía inglesa. Muy poca escapatoria y altas velocidades.' },
+            { cat: 'gt3', name: 'GT3 Europe', title: '3 Horas de Monza', date: '2026-05-31T13:00:00Z', circuit: 'Monza', tv: 'YouTube GT World', lapRecord: '1:46.8 (GT3)', firstYear: '2011', fact: 'El gran reto son las fortísimas apuradas de frenada con coches tan pesados como los GT3.' },
+            { cat: 'gt3', name: 'GT3 Europe', title: '24 Horas de Spa', date: '2026-06-28T14:30:00Z', circuit: 'Spa-Francorchamps', tv: 'YouTube GT World', lapRecord: '2:16.2 (GT3)', firstYear: '1924', fact: 'La mayor carrera de GT3 del planeta. Más de 60 coches de idéntica categoría peleando.' },
+            { cat: 'gt3', name: 'GT3 Europe', title: 'Misano (Sprint)', date: '2026-07-19T13:00:00Z', circuit: 'Misano', tv: 'YouTube GT World', lapRecord: '1:31.2 (GT3)', firstYear: '2015', fact: 'Carreras cortas y al sprint donde un solo error en pit-stop te cuesta el fin de semana.' },
+            { cat: 'gt3', name: 'GT3 Europe', title: 'Magny-Cours (Sprint)', date: '2026-08-02T13:00:00Z', circuit: 'Magny-Cours', tv: 'YouTube GT World', lapRecord: '1:35.8 (GT3)', firstYear: '2020', fact: 'Trazado clásico francés muy técnico, exigiendo mucho chasis y paso por curva lenta.' },
+            { cat: 'gt3', name: 'GT3 Europe', title: '3 Horas Nürburgring', date: '2026-08-30T13:00:00Z', circuit: 'Nürburgring GP', tv: 'YouTube GT World', lapRecord: '1:53.5 (GT3)', firstYear: '2011', fact: 'Se corre solo en el trazado moderno del Gran Premio, no en el Nordschleife.' },
+            { cat: 'gt3', name: 'GT3 Europe', title: 'Zandvoort (Sprint)', date: '2026-09-20T13:00:00Z', circuit: 'Zandvoort', tv: 'YouTube GT World', lapRecord: '1:32.4 (GT3)', firstYear: '2015', fact: 'Los peraltes fuerzan las suspensiones de los GT al límite.' },
+            { cat: 'gt3', name: 'GT3 Europe', title: 'Barcelona (Sprint)', date: '2026-10-04T13:00:00Z', circuit: 'Barcelona-Catalunya', tv: 'YouTube GT World', lapRecord: '1:43.0 (GT3)', firstYear: '2016', fact: 'Las altas temperaturas desgastan mucho los neumáticos traseros de los GT.' },
+            { cat: 'gt3', name: 'GT3 Europe', title: 'Portimão (Endurance)', date: '2026-10-18T13:00:00Z', circuit: 'Portimão', tv: 'YouTube GT World', lapRecord: '1:42.5 (GT3)', firstYear: '2025', fact: 'Los fuertes desniveles complican la vida a los coches con motor delantero (como los BMW).' },
 
             // GT4 EUROPEAN SERIES
-            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 1', date: '2026-04-12', circuit: 'Paul Ricard', tv: 'YouTube GT World', lapRecord: '2:10.0 (GT4)', firstYear: '2018', fact: 'Coches más lentos pero con aerodinámica básica, fomentando muchísimos adelantamientos.' },
-            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 2', date: '2026-05-31', circuit: 'Monza', tv: 'YouTube GT World', lapRecord: '1:55.5 (GT4)', firstYear: '2018', fact: 'Aprovechan los rebufos masivos en las rectas de Monza para pasar de a tres por curva.' },
-            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 3', date: '2026-06-27', circuit: 'Spa-Francorchamps', tv: 'YouTube GT World', lapRecord: '2:30.0 (GT4)', firstYear: '2018', fact: 'Actúan de teloneros de las legendarias 24 Horas de Spa.' },
-            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 4', date: '2026-07-19', circuit: 'Misano', tv: 'YouTube GT World', lapRecord: '1:39.0 (GT4)', firstYear: '2018', fact: 'Gran presencia de marcas italianas con Maserati y equipos privados.' },
-            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 5', date: '2026-09-20', circuit: 'Zandvoort', tv: 'YouTube GT World', lapRecord: '1:41.5 (GT4)', firstYear: '2018', fact: 'Categoría trampolín para jóvenes pilotos que quieren saltar a GT3 o prototipos.' },
-            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 6', date: '2026-10-18', circuit: 'Portimão', tv: 'YouTube GT World', lapRecord: '1:49.0 (GT4)', firstYear: '2025', fact: 'El chasis mecánico puro y poca electrónica marca la diferencia en las bajadas de Portimão.' },
+            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 1', date: '2026-04-12T09:00:00Z', circuit: 'Paul Ricard', tv: 'YouTube GT World', lapRecord: '2:10.0 (GT4)', firstYear: '2018', fact: 'Coches más lentos pero con aerodinámica básica, fomentando muchísimos adelantamientos.' },
+            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 2', date: '2026-05-31T09:00:00Z', circuit: 'Monza', tv: 'YouTube GT World', lapRecord: '1:55.5 (GT4)', firstYear: '2018', fact: 'Aprovechan los rebufos masivos en las rectas de Monza para pasar de a tres por curva.' },
+            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 3', date: '2026-06-27T10:00:00Z', circuit: 'Spa-Francorchamps', tv: 'YouTube GT World', lapRecord: '2:30.0 (GT4)', firstYear: '2018', fact: 'Actúan de teloneros de las legendarias 24 Horas de Spa.' },
+            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 4', date: '2026-07-19T09:00:00Z', circuit: 'Misano', tv: 'YouTube GT World', lapRecord: '1:39.0 (GT4)', firstYear: '2018', fact: 'Gran presencia de marcas italianas con Maserati y equipos privados.' },
+            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 5', date: '2026-09-20T09:00:00Z', circuit: 'Zandvoort', tv: 'YouTube GT World', lapRecord: '1:41.5 (GT4)', firstYear: '2018', fact: 'Categoría trampolín para jóvenes pilotos que quieren saltar a GT3 o prototipos.' },
+            { cat: 'gt4', name: 'GT4 Europe', title: 'Ronda 6', date: '2026-10-18T09:00:00Z', circuit: 'Portimão', tv: 'YouTube GT World', lapRecord: '1:49.0 (GT4)', firstYear: '2025', fact: 'El chasis mecánico puro y poca electrónica marca la diferencia en las bajadas de Portimão.' },
 
             // DTM
-            { cat: 'dtm', name: 'DTM', title: 'Ronda 1', date: '2026-04-26', circuit: 'Red Bull Ring', tv: 'YouTube / DAZN', lapRecord: '1:28.0 (GT3)', firstYear: '2000', fact: 'Históricamente la categoría de turismos más importante, hoy con reglamento GT3.' },
-            { cat: 'dtm', name: 'DTM', title: 'Ronda 2', date: '2026-05-24', circuit: 'Zandvoort', tv: 'YouTube / DAZN', lapRecord: '1:32.0 (GT3)', firstYear: '2001', fact: 'Es uno de los circuitos fijos históricos del campeonato alemán.' },
-            { cat: 'dtm', name: 'DTM', title: 'Ronda 3', date: '2026-06-21', circuit: 'Lausitzring', tv: 'YouTube / DAZN', lapRecord: '1:34.0 (GT3)', firstYear: '2000', fact: 'Se corre dentro de un óvalo inmenso, usando una parte del infield revirado.' },
-            { cat: 'dtm', name: 'DTM', title: 'Ronda 4', date: '2026-07-05', circuit: 'Norisring', tv: 'YouTube / DAZN', lapRecord: '0:48.0 (GT3)', firstYear: '1984', fact: 'El "Mónaco de Nuremberg". Apenas tiene 4 curvas y se tarda solo 48 segundos por vuelta.' },
-            { cat: 'dtm', name: 'DTM', title: 'Ronda 5', date: '2026-07-26', circuit: 'Oschersleben', tv: 'YouTube / DAZN', lapRecord: '1:21.0 (GT3)', firstYear: '1999', fact: 'Trazado llano, trabado y con un desgaste de frenos brutal.' },
-            { cat: 'dtm', name: 'DTM', title: 'Ronda 6', date: '2026-08-16', circuit: 'Nürburgring Sprint', tv: 'YouTube / DAZN', lapRecord: '1:25.0 (GT3)', firstYear: '1984', fact: 'Clima siempre incierto. Las carreras en lluvia de la DTM aquí son míticas.' },
-            { cat: 'dtm', name: 'DTM', title: 'Ronda 7', date: '2026-09-13', circuit: 'Sachsenring', tv: 'YouTube / DAZN', lapRecord: '1:17.0 (GT3)', firstYear: '2000', fact: 'Conocido mundialmente por MotoGP, los GT3 sufren muchísimo en el sector de subidas.' },
-            { cat: 'dtm', name: 'DTM', title: 'Ronda 8', date: '2026-10-11', circuit: 'Hockenheimring', tv: 'YouTube / DAZN', lapRecord: '1:37.0 (GT3)', firstYear: '1984', fact: 'El tradicional cierre del campeonato DTM desde hace décadas.' },
+            { cat: 'dtm', name: 'DTM', title: 'Ronda 1', date: '2026-04-26T11:30:00Z', circuit: 'Red Bull Ring', tv: 'YouTube / DAZN', lapRecord: '1:28.0 (GT3)', firstYear: '2000', fact: 'Históricamente la categoría de turismos más importante, hoy con reglamento GT3.' },
+            { cat: 'dtm', name: 'DTM', title: 'Ronda 2', date: '2026-05-24T11:30:00Z', circuit: 'Zandvoort', tv: 'YouTube / DAZN', lapRecord: '1:32.0 (GT3)', firstYear: '2001', fact: 'Es uno de los circuitos fijos históricos del campeonato alemán.' },
+            { cat: 'dtm', name: 'DTM', title: 'Ronda 3', date: '2026-06-21T11:30:00Z', circuit: 'Lausitzring', tv: 'YouTube / DAZN', lapRecord: '1:34.0 (GT3)', firstYear: '2000', fact: 'Se corre dentro de un óvalo inmenso, usando una parte del infield revirado.' },
+            { cat: 'dtm', name: 'DTM', title: 'Ronda 4', date: '2026-07-05T11:30:00Z', circuit: 'Norisring', tv: 'YouTube / DAZN', lapRecord: '0:48.0 (GT3)', firstYear: '1984', fact: 'El "Mónaco de Nuremberg". Apenas tiene 4 curvas y se tarda solo 48 segundos por vuelta.' },
+            { cat: 'dtm', name: 'DTM', title: 'Ronda 5', date: '2026-07-26T11:30:00Z', circuit: 'Oschersleben', tv: 'YouTube / DAZN', lapRecord: '1:21.0 (GT3)', firstYear: '1999', fact: 'Trazado llano, trabado y con un desgaste de frenos brutal.' },
+            { cat: 'dtm', name: 'DTM', title: 'Ronda 6', date: '2026-08-16T11:30:00Z', circuit: 'Nürburgring Sprint', tv: 'YouTube / DAZN', lapRecord: '1:25.0 (GT3)', firstYear: '1984', fact: 'Clima siempre incierto. Las carreras en lluvia de la DTM aquí son míticas.' },
+            { cat: 'dtm', name: 'DTM', title: 'Ronda 7', date: '2026-09-13T11:30:00Z', circuit: 'Sachsenring', tv: 'YouTube / DAZN', lapRecord: '1:17.0 (GT3)', firstYear: '2000', fact: 'Conocido mundialmente por MotoGP, los GT3 sufren muchísimo en el sector de subidas.' },
+            { cat: 'dtm', name: 'DTM', title: 'Ronda 8', date: '2026-10-11T11:30:00Z', circuit: 'Hockenheimring', tv: 'YouTube / DAZN', lapRecord: '1:37.0 (GT3)', firstYear: '1984', fact: 'El tradicional cierre del campeonato DTM desde hace décadas.' },
 
             // NLS (Nordschleife) + 24H Nürburgring
-            { cat: 'nls', name: 'NLS', title: 'NLS 1: Westfalenfahrt', date: '2026-03-14', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'La temporada arranca en el "Infierno Verde". Más de 100 coches compiten a la vez.' },
-            { cat: 'nls', name: 'NLS', title: 'NLS 2', date: '2026-03-21', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'Circuito de 24.4 km de largo; llueve en una parte de la pista mientras hace sol en otra.' },
-            { cat: 'nls', name: 'NLS', title: 'NLS 3', date: '2026-04-11', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'Coches GT3 compartiendo pista con antiguos BMW de serie y compactos.' },
-            { cat: 'nls', name: 'NLS', title: '24h Qualifiers', date: '2026-04-19', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '8:09.0 (GT3 Race)', firstYear: '2014', fact: 'Prueba de fuego oficial (carrera larga) para prepararse para las grandes 24 Horas.' },
-            { cat: 'nls', name: '24h NBR', title: '24 Horas de Nürburgring', date: '2026-05-16', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '8:08.0 (GT3)', firstYear: '1970', fact: 'El campeón de F1 Max Verstappen hará su esperado debut en esta mítica carrera a los mandos de un GT3.' },
-            { cat: 'nls', name: 'NLS', title: 'NLS 6', date: '2026-06-20', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'En el salto de Pflanzgarten, los coches de élite se separan varios centímetros del suelo.' },
-            { cat: 'nls', name: 'NLS', title: 'NLS 7', date: '2026-08-01', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'El mítico carrusel (Karusell) tiene placas de hormigón originales de hace 90 años.' },
-            { cat: 'nls', name: 'NLS', title: 'NLS 8 & 9', date: '2026-09-13', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'Las temibles barreras "Armco" están literalmente pegadas a la pista sin escapatorias.' },
-            { cat: 'nls', name: 'NLS', title: 'NLS 10', date: '2026-10-10', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'Última carrera antes del invierno alemán, que imposibilita correr en esta cordillera.' }
+            { cat: 'nls', name: 'NLS', title: 'NLS 1: Westfalenfahrt', date: '2026-03-14T10:00:00Z', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'La temporada arranca en el "Infierno Verde". Más de 100 coches compiten a la vez.' },
+            { cat: 'nls', name: 'NLS', title: 'NLS 2', date: '2026-03-21T10:00:00Z', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'Circuito de 24.4 km de largo; llueve en una parte de la pista mientras hace sol en otra.' },
+            { cat: 'nls', name: 'NLS', title: 'NLS 3', date: '2026-04-11T10:00:00Z', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'Coches GT3 compartiendo pista con antiguos BMW de serie y compactos.' },
+            { cat: 'nls', name: 'NLS', title: '24h Qualifiers', date: '2026-04-19T10:00:00Z', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '8:09.0 (GT3 Race)', firstYear: '2014', fact: 'Prueba de fuego oficial (carrera larga) para prepararse para las grandes 24 Horas.' },
+            { cat: 'nls', name: '24h NBR', title: '24 Horas de Nürburgring', date: '2026-05-16T14:00:00Z', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '8:08.0 (GT3)', firstYear: '1970', fact: 'El campeón de F1 Max Verstappen hará su esperado debut en esta mítica carrera a los mandos de un GT3.' },
+            { cat: 'nls', name: 'NLS', title: 'NLS 6', date: '2026-06-20T10:00:00Z', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'En el salto de Pflanzgarten, los coches de élite se separan varios centímetros del suelo.' },
+            { cat: 'nls', name: 'NLS', title: 'NLS 7', date: '2026-08-01T10:00:00Z', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'El mítico carrusel (Karusell) tiene placas de hormigón originales de hace 90 años.' },
+            { cat: 'nls', name: 'NLS', title: 'NLS 8 & 9', date: '2026-09-13T10:00:00Z', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'Las temibles barreras "Armco" están literalmente pegadas a la pista sin escapatorias.' },
+            { cat: 'nls', name: 'NLS', title: 'NLS 10', date: '2026-10-10T10:00:00Z', circuit: 'Nordschleife', tv: 'YouTube Nürburgring', lapRecord: '7:53.0 (GT3)', firstYear: '1977', fact: 'Última carrera antes del invierno alemán, que imposibilita correr en esta cordillera.' }
         ];
 
         const grid = document.getElementById('events-grid');
@@ -501,49 +378,103 @@
         }
 
         function filterPastEvents(eventsList) {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); 
-            return eventsList.filter(event => new Date(event.date) >= today);
+            const today = new Date().getTime();
+            return eventsList.filter(event => new Date(event.date).getTime() >= (today - 24*60*60*1000));
         }
 
-        // --- FUNCIÓN DE FECHA ACTUALIZADA ---
-        function formatDate(dateString) {
-            // Se añade el día de la semana y el año en las opciones nativas
-            const options = { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' };
+        // --- Generador Automático de Horarios del Fin de Semana ---
+        function generateSchedule(event) {
+            const raceTime = new Date(event.date).getTime();
+            const H = 60 * 60 * 1000;
+            const D = 24 * H;
+            
+            if (event.cat === 'f1') {
+                return [
+                    { name: 'Libres 1', time: raceTime - 2*D - 3*H },
+                    { name: 'Libres 2', time: raceTime - 2*D + 1*H },
+                    { name: 'Libres 3', time: raceTime - 1*D - 2*H },
+                    { name: 'Clasificación', time: raceTime - 1*D + 1*H },
+                    { name: '🏁 Carrera', time: raceTime, isMain: true }
+                ];
+            } else if (event.cat === 'motogp') {
+                return [
+                    { name: 'Práctica Libre 1', time: raceTime - 2*D - 3*H },
+                    { name: 'Práctica', time: raceTime - 2*D + 1*H },
+                    { name: 'Clasificación', time: raceTime - 1*D - 3*H },
+                    { name: 'Carrera Sprint', time: raceTime - 1*D + 1*H },
+                    { name: '🏁 Carrera', time: raceTime, isMain: true }
+                ];
+            } else if (event.cat === 'wec') {
+                 return [
+                    { name: 'Prácticas', time: raceTime - 2*D },
+                    { name: 'Hyperpole / Qualy', time: raceTime - 1*D },
+                    { name: '🏁 Carrera', time: raceTime, isMain: true }
+                ];
+            } else if (event.cat === 'nls') {
+                 return [
+                    { name: 'Clasificación', time: raceTime - 2*H },
+                    { name: '🏁 Carrera', time: raceTime, isMain: true }
+                ];
+            } else {
+                 return [
+                    { name: 'Prácticas', time: raceTime - 1*D - 3*H },
+                    { name: 'Clasificación', time: raceTime - 1*D },
+                    { name: '🏁 Carrera', time: raceTime, isMain: true }
+                ];
+            }
+        }
+
+        // --- Formateador de Fechas (Con Día de la semana y Hora) ---
+        function formatFullDate(dateString) {
             const date = new Date(dateString);
+            const options = { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' };
             let formatted = date.toLocaleDateString('es-ES', options);
+            formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1).replace('.,', ',');
             
-            // Ponemos la primera letra en mayúscula (ej: "sáb" -> "Sáb")
-            formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+            // Añadimos la hora real
+            const timeOptions = { hour: '2-digit', minute: '2-digit' };
+            const time = date.toLocaleTimeString('es-ES', timeOptions);
             
-            // Limpiamos si el navegador pone un punto tras la abreviatura (Sáb., -> Sáb,)
-            formatted = formatted.replace('.,', ',');
-            
-            return formatted;
+            return `${formatted} a las ${time}h`;
         }
-        // ------------------------------------
 
-        function getGoogleCalendarLink(event) {
-            const startDate = event.date.replace(/-/g, '');
-            const nextDay = new Date(event.date);
-            nextDay.setDate(nextDay.getDate() + 1);
-            const endDate = nextDay.toISOString().split('T')[0].replace(/-/g, '');
+        function formatSessionTime(timestamp) {
+            const date = new Date(timestamp);
+            let str = date.toLocaleString('es-ES', { weekday: 'short', hour: '2-digit', minute: '2-digit' });
+            return str.charAt(0).toUpperCase() + str.slice(1).replace('.,', ',');
+        }
+        // -----------------------------------------------------------
+
+        function getGoogleCalendarLink(event, schedule) {
+            const startDate = event.date.replace(/[-:]/g, '').replace(/\..+/, '') + 'Z';
+            const nextDay = new Date(new Date(event.date).getTime() + 2 * 60 * 60 * 1000); // Carrera + 2 horas
+            const endDate = nextDay.toISOString().replace(/[-:]/g, '').replace(/\..+/, '') + 'Z';
+            
             const titleText = encodeURIComponent(event.name + ': ' + event.title);
             const locationText = encodeURIComponent(event.circuit);
-            const descriptionText = encodeURIComponent('📺 TV: ' + event.tv + '\n⏱️ Récord: ' + event.lapRecord + '\n\n💡 Dato curioso:\n' + event.fact);
-            return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titleText}&dates=${startDate}/${endDate}&details=${descriptionText}&location=${locationText}`;
+            
+            let desc = `📺 TV: ${event.tv}\n⏱️ Récord: ${event.lapRecord}\n\n🗓️ PLANNING DEL FIN DE SEMANA:\n`;
+            schedule.forEach(s => {
+                desc += `- ${s.name}: ${formatSessionTime(s.time)} h\n`;
+            });
+            desc += `\n💡 Dato curioso:\n${event.fact}`;
+            
+            return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titleText}&dates=${startDate}/${endDate}&details=${encodeURIComponent(desc)}&location=${locationText}`;
         }
 
-        function getAppleCalendarLink(event) {
-            const startDate = event.date.replace(/-/g, '');
-            const nextDay = new Date(event.date);
-            nextDay.setDate(nextDay.getDate() + 1);
-            const endDate = nextDay.toISOString().split('T')[0].replace(/-/g, '');
+        function getAppleCalendarLink(event, schedule) {
+            const startDate = event.date.replace(/[-:]/g, '').replace(/\..+/, '') + 'Z';
+            const nextDay = new Date(new Date(event.date).getTime() + 2 * 60 * 60 * 1000);
+            const endDate = nextDay.toISOString().replace(/[-:]/g, '').replace(/\..+/, '') + 'Z';
+            
             const titleText = event.name + ': ' + event.title;
-            const descriptionText = '📺 TV: ' + event.tv + '\\n⏱️ Récord: ' + event.lapRecord + '\\n\\n💡 Dato curioso:\\n' + event.fact;
+            let desc = `📺 TV: ${event.tv}\\n⏱️ Récord: ${event.lapRecord}\\n\\n🗓️ PLANNING:\\n`;
+            schedule.forEach(s => { desc += `- ${s.name}: ${formatSessionTime(s.time)} h\\n`; });
+            desc += `\\n💡 Dato:\\n${event.fact}`;
+            
             let icsFile = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//RaceHub 2026//ES\nBEGIN:VEVENT\n";
-            icsFile += "SUMMARY:" + titleText + "\nDTSTART;VALUE=DATE:" + startDate + "\nDTEND;VALUE=DATE:" + endDate + "\n";
-            icsFile += "LOCATION:" + event.circuit + "\nDESCRIPTION:" + descriptionText + "\nEND:VEVENT\nEND:VCALENDAR";
+            icsFile += "SUMMARY:" + titleText + "\nDTSTART:" + startDate + "\nDTEND:" + endDate + "\n";
+            icsFile += "LOCATION:" + event.circuit + "\nDESCRIPTION:" + desc + "\nEND:VEVENT\nEND:VCALENDAR";
             return 'data:text/calendar;charset=utf8,' + encodeURIComponent(icsFile);
         }
 
@@ -557,13 +488,8 @@
             document.getElementById('calendar-modal').classList.add('active');
         }
 
-        function closeModal() {
-            document.getElementById('calendar-modal').classList.remove('active');
-        }
-
-        document.getElementById('calendar-modal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
+        function closeModal() { document.getElementById('calendar-modal').classList.remove('active'); }
+        document.getElementById('calendar-modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
         function startCountdowns(eventsList) {
             if (countdownInterval) clearInterval(countdownInterval);
@@ -575,11 +501,16 @@
                     const timerEl = document.getElementById(`timer-${index}`);
                     if (!timerEl) return;
 
-                    const raceDate = new Date(event.date + "T14:00:00Z").getTime();
+                    const raceDate = new Date(event.date).getTime();
                     const distance = raceDate - now;
 
-                    if (distance < 0) {
-                        timerEl.innerHTML = "🏁 ¡Día de carrera!";
+                    if (distance < 0 && distance > -10800000) { // Si ha empezado hace menos de 3h
+                        timerEl.innerHTML = "🏁 ¡CARRERA EN DIRECTO!";
+                        timerEl.style.color = "#E10600"; timerEl.style.borderColor = "#E10600";
+                        return;
+                    } else if (distance < 0) {
+                        timerEl.innerHTML = "🏁 Evento Finalizado";
+                        timerEl.style.color = "var(--text-muted)"; timerEl.style.borderColor = "var(--text-muted)";
                         return;
                     }
 
@@ -599,12 +530,7 @@
 
         function renderEvents(filter = 'all') {
             grid.innerHTML = ''; 
-
-            let filtered = allEvents;
-            if (filter !== 'all') {
-                filtered = allEvents.filter(e => e.cat === filter);
-            }
-
+            let filtered = filter !== 'all' ? allEvents.filter(e => e.cat === filter) : allEvents;
             let futureEvents = filterPastEvents(filtered);
             futureEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
@@ -615,11 +541,19 @@
             }
 
             futureEvents.forEach((event, index) => {
-                const googleUrl = getGoogleCalendarLink(event);
-                const appleUrl = getAppleCalendarLink(event);
+                const schedule = generateSchedule(event);
+                const googleUrl = getGoogleCalendarLink(event, schedule);
+                const appleUrl = getAppleCalendarLink(event, schedule);
                 const safeFileName = event.title.replace(/\s+/g, '_') + '.ics';
                 const logoImgSrc = logos[event.cat];
                 const channelUrl = getChannelLink(event.cat);
+                
+                // Construir lista de horarios en HTML
+                let scheduleHtml = '';
+                schedule.forEach(s => {
+                    const liClass = s.isMain ? 'main-race' : '';
+                    scheduleHtml += `<li class="${liClass}"><span>${s.name}</span> <span>${formatSessionTime(s.time)}</span></li>`;
+                });
 
                 const card = document.createElement('div');
                 card.className = 'card';
@@ -633,9 +567,15 @@
                         
                         <h2 class="event-title">${event.title}</h2>
                         
-                        <div class="info-row"><span class="icon">📅</span><span><strong>${formatDate(event.date)}</strong></span></div>
                         <div class="info-row"><span class="icon">📍</span><span><strong>${event.circuit}</strong></span></div>
-                        <div class="info-row"><span class="icon">🏛️</span><span>Primera edición: <strong>${event.firstYear}</strong></span></div>
+                        <div class="info-row"><span class="icon">📅</span><span><strong>${formatFullDate(event.date)}</strong></span></div>
+                        
+                        <details class="schedule-accordion">
+                            <summary>🗓️ Ver horarios del fin de semana</summary>
+                            <ul class="schedule-list">${scheduleHtml}</ul>
+                        </details>
+
+                        <div class="info-row" style="margin-top: 10px;"><span class="icon">🏛️</span><span>Primera edición: <strong>${event.firstYear}</strong></span></div>
                         <div class="info-row"><span class="icon">⏱️</span><span>Récord: <strong>${event.lapRecord}</strong></span></div>
                         <div class="info-row"><span class="icon">📺</span><span>TV: <a href="${channelUrl}" target="_blank" class="tv-link">${event.tv}</a></span></div>
 
