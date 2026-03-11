@@ -98,7 +98,7 @@
         .tv-link:hover { color: #bae6fd; text-decoration: underline; }
         .fact-box { margin-top: 10px; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; font-size: 0.9em; color: #cbd5e1; border-left: 3px solid #64748b; font-style: italic; flex-grow: 1; }
 
-        .no-events { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.2em; color: var(--text-muted); background: rgba(30, 41, 59, 0.8); border-radius: 16px; backdrop-filter: blur(5px); }
+        .no-events { grid-column: 1 / -1; text-align: center; padding: 30px; font-size: 1.1em; color: var(--text-muted); background: rgba(30, 41, 59, 0.8); border-radius: 16px; backdrop-filter: blur(5px); }
         .loader { display: inline-block; width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: #38bdf8; animation: spin 1s ease-in-out infinite; margin-bottom: 20px;}
         @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -155,7 +155,7 @@
     </div>
 
     <div class="calendar-grid" id="events-grid">
-        <div class="no-events">
+        <div class="no-events" id="loading-box">
             <div class="loader"></div><br>
             Conectando con Box... Descargando telemetría y horarios 📡
         </div>
@@ -173,7 +173,6 @@
     </div>
 
     <script>
-        // TU ID DE GOOGLE SHEETS YA ESTÁ AQUÍ
         const SHEET_ID = '1JoK-5nQjVQSSBL5-uxjOP13arS2zAFV8hPM38r93Wg4'; 
         
         let allEvents = [];
@@ -194,35 +193,37 @@
             </svg>`;
 
         // =========================================================================
-        // MOTOR DE DESCARGA CON SISTEMA DE DIAGNÓSTICO
+        // MOTOR DE DESCARGA CON ANTIBLOQUEOS
         // =========================================================================
         async function loadDataFromGoogleSheets() {
             const grid = document.getElementById('events-grid');
             const categories = ['f1', 'motogp', 'wec', 'gt3', 'gt4', 'dtm', 'nls'];
             
-            // Usamos un sistema paralelo pero controlando los errores uno a uno
             const fetchPromises = categories.map(async (cat) => {
                 const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${cat}`;
                 
                 try {
                     const res = await fetch(url);
-                    if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+                    
+                    // Si Google rechaza la lectura (Error 400), lo capturamos aquí
+                    if (!res.ok) {
+                        throw new Error(`Rechazado (Error ${res.status}). Revisa que la pestaña "${cat}" exista y no tenga espacios al final.`);
+                    }
                     
                     const text = await res.text();
                     
-                    // Si Google nos devuelve código HTML, significa que la hoja está PRIVADA
-                    if (text.includes("<!DOCTYPE html>") || text.includes("<html")) {
-                        throw new Error("❌ La hoja está PRIVADA. Google bloquea la lectura.");
+                    // Si el archivo no está publicado, Google nos devuelve una página web (HTML)
+                    if (text.trim().startsWith("<")) {
+                        throw new Error(`La hoja está privada. Ve a 'Archivo > Compartir > Publicar en la Web'.`);
                     }
                     
                     const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S\w]+)\);/);
-                    if (!match) throw new Error("Formato de respuesta desconocido.");
+                    if (!match) throw new Error("Formato inválido de Google.");
                     
                     const data = JSON.parse(match[1]);
                     
-                    // Si la pestaña no existe o el nombre está mal escrito
                     if (data.status === "error") {
-                        throw new Error("❌ Pestaña no encontrada (Comprueba que se llama exactamente así en minúsculas).");
+                        throw new Error("Pestaña no encontrada.");
                     }
                     
                     let catEvents = [];
@@ -251,7 +252,6 @@
 
             try {
                 const results = await Promise.all(fetchPromises);
-                
                 let loadedEvents = [];
                 let errorLog = [];
 
@@ -259,25 +259,23 @@
                     if (result.status === 'ok') {
                         loadedEvents.push(...result.data);
                     } else {
-                        errorLog.push(`<b>Pestaña [${result.cat}]</b>: ${result.errorMsg}`);
+                        errorLog.push(`<b>[Pestaña ${result.cat}]</b>: ${result.errorMsg}`);
                     }
                 });
 
-                // Si no se ha cargado ABSOLUTAMENTE NINGUNA carrera, mostramos el Panel de Diagnóstico
+                // Si NO ha podido descargar NINGUNA carrera, enseñamos la caja roja
                 if (loadedEvents.length === 0) {
                     grid.innerHTML = `
-                        <div class="no-events" style="border: 2px solid #E10600; text-align: left; font-size: 1.1em; color: white;">
-                            <h3>⚠️ Panel de Diagnóstico: La conexión falló</h3>
-                            <p>No se pudo descargar ninguna carrera. El sistema detectó estos fallos en tu Google Sheets:</p>
-                            <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; font-family: monospace; color: #ff7b7b;">
+                        <div class="no-events" style="border: 2px solid #E10600; text-align: left; background: rgba(225, 6, 0, 0.1);">
+                            <h3 style="color: white; margin-top: 0;">⚠️ Conexión rechazada por Google</h3>
+                            <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; font-family: monospace; color: #ff7b7b; margin-bottom: 15px;">
                                 ${errorLog.join('<br>')}
                             </div>
-                            <br>
-                            <b>👉 Soluciones Rápidas:</b>
-                            <ul style="color: #94a3b8; font-size: 0.9em;">
-                                <li style="margin-bottom: 5px;">Abre tu Google Sheets, ve arriba a la derecha a <b>"Compartir"</b> y marca la opción <b>"Cualquier usuario que tenga el vínculo"</b>.</li>
-                                <li style="margin-bottom: 5px;">Asegúrate de que en la parte de abajo de tu Excel tienes 7 pestañas creadas y llamadas exactamente así: <b>f1, motogp, wec, gt3, gt4, dtm, nls</b>.</li>
-                            </ul>
+                            <strong style="color: white;">Cómo solucionarlo:</strong>
+                            <ol style="color: #cbd5e1; text-align: left; padding-left: 20px;">
+                                <li>En tu Excel, ve a <b>Archivo > Compartir > Publicar en la Web</b> y dale al botón verde de publicar.</li>
+                                <li>Haz doble clic en los nombres de tus 7 pestañas abajo del todo y quítales los espacios al final si los tienen.</li>
+                            </ol>
                         </div>
                     `;
                     return;
@@ -288,12 +286,12 @@
                 renderEvents(activeBtn ? activeBtn.getAttribute('data-cat') : 'all');
 
             } catch (fatalError) {
-                grid.innerHTML = `<div class="no-events">❌ Error crítico en el código JS:<br>${fatalError.message}</div>`;
+                grid.innerHTML = `<div class="no-events">❌ Error fatal en JS:<br>${fatalError.message}</div>`;
             }
         }
 
         // =========================================================================
-        // RESTO DE FUNCIONES (No tocar)
+        // RESTO DE FUNCIONES
         // =========================================================================
         function getChannelLink(cat) {
             if (cat === 'f1') return 'https://www.dazn.com/es-ES/l/formula-1/';
@@ -534,7 +532,7 @@
             });
         });
 
-        // ARRANCAMOS EL MOTOR AL CARGAR LA PÁGINA
+        // ARRANCAMOS EL MOTOR
         window.onload = loadDataFromGoogleSheets;
 
     </script>
